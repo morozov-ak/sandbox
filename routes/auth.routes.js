@@ -17,14 +17,14 @@ router.post(
     async(req, res)=>{
     try{
         const errosrs=validationResult(req)
-        console.log(validationResult(req))
-        console.log(req.body)
+        console.log(`результат валидации:`,validationResult(req))
+        console.log(`Тело ответа:`, req.body)
         
         if(!errosrs.isEmpty()){
             console.log('Проверка наличия ошибок')
-            return escape.status(400).json({
+            return res.status(400).json({
                 errors: errors.array(),
-                message:'Incorrect registration data'
+                message:'Некорректные данные при регистрации'
             })
         }
         const{email, password}=req.body
@@ -38,7 +38,7 @@ router.post(
         res.status(201).json({message:'User created'})
 
     }catch(e){
-        res.status(500).json({message:"Что-то пошло не так ,блять"})
+        res.status(500).json({message:"Что-то пошло не так при регистрации"})
     }
 
 })
@@ -51,19 +51,19 @@ router.post(
     ],
     async(req, res)=>{
     try{
-        console.log('Проверка 1')
+        
         const errors=validationResult(req)
-        console.log('Проверка 2')
+        
             if(!errors.isEmpty()){
                 console.log("ошибки", errors)
-                return escape.status(400).json({
+                return res.status(400).json({
                     errors: errors.array(),
                     message:'Incorrect login data'
                 })
             }
-            console.log('Проверка 3')
+            
         const{email,password}=req.body
-        console.log('Проверка 4',email,password)
+        
         const user = await User.findOne({email})
         if(!user){
             return res.status(400).json({message:'User not found'})
