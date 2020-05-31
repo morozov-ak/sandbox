@@ -16,28 +16,29 @@ router.post(
     ], 
     async(req, res)=>{
     try{
-        const errosrs=validationResult(req)
+        const errors=validationResult(req)
         console.log(`результат валидации:`,validationResult(req))
         console.log(`Тело ответа:`, req.body)
         
-        if(!errosrs.isEmpty()){
+        if(!errors.isEmpty()){
             console.log('Проверка наличия ошибок')
             return res.status(400).json({
                 errors: errors.array(),
                 message:'Некорректные данные при регистрации'
             })
         }
-        const{email, password}=req.body
+        const{email, password,name}=req.body
         const candidate = await User.findOne({email})
         if(candidate){
             return res.status(400).json({message:'User exists'})
         }
         const hashedPassword =await bcrypt.hash(password,12)
-        const user = new User({email, password:hashedPassword})
+        const user = new User({email, password:hashedPassword,name})
         await user.save()
         res.status(201).json({message:'User created'})
 
     }catch(e){
+        console.log( `e^`,e)
         res.status(500).json({message:"Что-то пошло не так при регистрации"})
     }
 
