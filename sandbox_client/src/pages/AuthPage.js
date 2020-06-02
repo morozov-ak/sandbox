@@ -15,8 +15,8 @@ export const AuthPage = () => {
     useEffect ( ()=>{
         
         popup(error)
-        clearError()
-    },[error,message, clearError] )
+        //clearError()
+    },[error,clearError] )
 
     const changeHandler = event=>{
         setForm({...form, [event.target.name]:event.target.value})
@@ -59,7 +59,7 @@ export const AuthPage = () => {
 
         <button type="submit" onClick={loginHandler} className="btn btn-primary mybtn">Sign in</button>
         <button type="submit" onClick={registerHandler} className="btn btn-success">Register</button>
-        <div id="snackbar">{error}</div>
+        <div id="snackbar" >{error}</div>
     </div>  
   
     )

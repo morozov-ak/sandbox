@@ -3,6 +3,7 @@ import {BrowserRouter as Router} from 'react-router-dom'
 import './App.css';
 import { Navbar } from './components/Navbar';
 import { useRoutes } from './routes';
+import 'bootstrap'
 
 function App() {
   const routes = useRoutes(false)
