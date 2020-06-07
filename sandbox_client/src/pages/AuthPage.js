@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,useContext } from 'react'
 import { useHttp } from '../hooks/http.hook'
-import { useMessage } from '../hooks/message.hook'
-import { popup } from '../components/popup'
+import { useMessage } from '../hooks/popup'
+import {AuthContext} from '../context/AuthContext'
 
 
 export const AuthPage = () => {
+    const auth = useContext(AuthContext)
     const message = useMessage()
     const {loading,error,request, clearError} = useHttp()
     const[form,setForm]=useState({
@@ -14,9 +15,9 @@ export const AuthPage = () => {
 
     useEffect ( ()=>{
         
-        popup(error)
-        //clearError()
-    },[error,clearError] )
+        if(error){message(error)}
+        
+    },[error,message,] )
 
     const changeHandler = event=>{
         setForm({...form, [event.target.name]:event.target.value})
@@ -25,8 +26,9 @@ export const AuthPage = () => {
 
     const registerHandler = async () => {
         try{
+            clearError()
             const data = await request('/api/auth/register','POST',{...form})
-            popup(data.message)
+            message(data.message)
             console.log(data)
         }
         catch(e){}
@@ -34,7 +36,8 @@ export const AuthPage = () => {
     const loginHandler = async () => {
         try{
             const data = await request('/api/auth/login','POST',{...form})
-            if(data.message){popup(data.message)}
+            if(data.message){message(data.message)}
+            auth.login(data.token, data.userId)
             console.log(data)
         }
         catch(e){}

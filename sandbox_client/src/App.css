@@ -30,14 +30,18 @@
 
 
 .auth{
-  position: relative;
-  margin-left: auto;
-  margin-right: auto;
-  width: 500px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
 }
 .mybtn{
   margin-right: 10px ;
 }
+
+
+
 
  /* The snackbar - position it at the bottom and in the middle of the screen */
  #snackbar {
@@ -64,7 +68,7 @@
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
 
-/* Animations to fade the snackbar in and out */
+/* Animations to fade the snackbar in and out 
 @-webkit-keyframes fadein {
   from {top: 0; opacity: 0;}
   to {top: 30px; opacity: 1;}
@@ -84,3 +88,4 @@
   from {top: 30px; opacity: 1;}
   to {top: 0; opacity: 0;}
 } 
+*/
