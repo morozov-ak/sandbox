@@ -44,26 +44,28 @@ export const AuthPage = () => {
     }
     
     return(
-         
-    <div className="auth">
-        <div className="form-group">
-            <label htmlFor="exampleDropdownFormEmail2">Email address</label>
-            <input name="email" onChange={changeHandler} type="email" className="form-control" id="email" placeholder="email@example.com"/>
-        </div>
-        <div className="form-group">
-            <label htmlFor="exampleDropdownFormEmail2">МНЕ НУЖНО ИМЯ!!!</label>
-            <input name="name" onChange={changeHandler} type="name" className="form-control" id="name" placeholder="Имя"/>
-        </div>
+     <div className="rel">   
+        <div className="auth">
+            <div className="SiteLogoName">SandBOX</div>
+            <div className="form-group">
+                <label htmlFor="exampleDropdownFormEmail2">Email address</label>
+                <input name="email" onChange={changeHandler} type="email" className="form-control" id="email" placeholder="email@example.com"/>
+            </div>
+            <div className="form-group">
+                <label htmlFor="exampleDropdownFormEmail2">МНЕ НУЖНО ИМЯ!!!</label>
+                <input name="name" onChange={changeHandler} type="name" className="form-control" id="name" placeholder="Имя"/>
+            </div>
 
-        <div className="form-group">
-            <label htmlFor="exampleDropdownFormPassword2">Password</label>
-            <input name="password" onChange={changeHandler} type="password" className="form-control" id="password" placeholder="Password"/>
-        </div>
+            <div className="form-group">
+                <label htmlFor="exampleDropdownFormPassword2">Password</label>
+                <input name="password" onChange={changeHandler} type="password" className="form-control" id="password" placeholder="Password"/>
+            </div>
 
-        <button type="submit" onClick={loginHandler} className="btn btn-primary mybtn">Sign in</button>
-        <button type="submit" onClick={registerHandler} className="btn btn-success">Register</button>
+            <button type="submit" onClick={loginHandler} className="btn btn-primary mybtn">Sign in</button>
+            <button type="submit" onClick={registerHandler} className="btn btn-success">Register</button>
+            
+        </div>  
         <div id="snackbar" >{error}</div>
-    </div>  
-  
+    </div> 
     )
 }
