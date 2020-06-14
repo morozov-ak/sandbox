@@ -1,35 +1,30 @@
 const{Router}=require('express')
 const config = require('config')
 const shortid = require('shortid')
-const Link = require('../models/Notes')
+const Note = require('../models/Notes')
 const auth = require('../middleware/auth.middleware')
 const router = Router()
 
-router.post('/generate',auth, async(req,res)=>{
+router.post('/create',auth, async(req,res)=>{
     try{
-        const baseUrl=config.get('baseUrl')
-        const {from}=req.body
+        console.log(req.body)
         const code = shortid.generate()
-        const existing = await Link.findOne({from})
-        if(existing){
-            return res.json({link: existing})
-        }
-        const to = baseUrl+'/t/'+code
-        const link = new Link({
-            code, to, from, owner: req.user.userId
+        const  note = new Note({
+            code, name:req.body.name, notetext:req.body.notetext, owner: req.user.userId
         })
-        await link.save()
-        res.status(201).json({link})
+        console.log('note',note)
+        await note.save()
+        res.status(201).json({note})
 
     }catch(e){
-        res.status(500).json({message:"Что-то пошло не так"})
+        res.status(500).json({message:"Что-то пошло не так nen"})
     }
 })
 
 router.get('/',auth,async(req,res)=>{
     try{
-        const links=await Link.find({owner:req.user.userId})
-        res.json(links)
+        const notes=await Note.find({owner:req.user.userId})
+        res.json(Notes)
     }catch(e){
         res.status(500).json({message:"Что-то пошло не так"})
     }
@@ -37,8 +32,8 @@ router.get('/',auth,async(req,res)=>{
 
 router.get('/:id',async(req,res)=>{
     try{
-        const link=await Link.findById(req.params.id)
-        res.json(link)  
+        const note=await Note.findById(req.params.id)
+        res.json(note)  
 
     }catch(e){
         res.status(500).json({message:"Что-то пошло не так"})
