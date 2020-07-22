@@ -26,6 +26,7 @@ export const CreateNote = () => {
             })
             console.log(data)
             message(data.message)
+            setnewNote({name:'', notetext:''})
             
         }
         catch(e){}
@@ -37,7 +38,7 @@ export const CreateNote = () => {
     <div>
         <h1>Создать заметку</h1>
         <div className="input-group mb-3">
-            <input onChange={changeHandler} name="name" id="name" type="text" placeholder="Заголовок заметки" className="form-control" aria-label="Amount (to the nearest dollar)"/>
+            <input onChange={changeHandler} value={newNote.name} name="name" id="name" type="text" placeholder="Заголовок заметки" className="form-control" aria-label="Amount (to the nearest dollar)"/>
             <div className="input-group-append">
                 <button onClick={createHandler} className="btn btn-success" type="button" id="button-addon2">Сохранить</button>
             </div>
@@ -46,7 +47,7 @@ export const CreateNote = () => {
 
         <div className="input-group">
             
-        <textarea onChange={changeHandler} name="notetext" id="notetext" className="form-control" aria-label="With textarea"></textarea>
+        <textarea onChange={changeHandler} value={newNote.notetext} name="notetext" id="notetext" className="form-control" aria-label="With textarea"></textarea>
         </div>
     </div>
 

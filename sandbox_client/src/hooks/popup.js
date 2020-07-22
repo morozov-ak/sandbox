@@ -6,7 +6,7 @@ export const useMessage = () =>{
     const {clearError} = useHttp()
     return useCallback( text =>{
         
-        if(text==''){console.log('тут нет текста:',text)}
+        if(text===''){console.log('тут нет текста:',text)}
         
         if(text){
             var x = document.getElementById("snackbar");

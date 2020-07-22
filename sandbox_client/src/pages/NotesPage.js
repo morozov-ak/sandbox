@@ -1,6 +1,44 @@
-import React from 'react'
+import React, {useCallback, useContext, useEffect, useState} from 'react'
+import {useHttp} from '../hooks/http.hook'
+import {AuthContext} from '../context/AuthContext'
+import {Loader} from '../components/Loader'
+import {NotesList} from '../components/NotesList'
+
 export const NotesPage = () => {
+    const [notes, setnewNote] = useState([])
+    const {loading, request} = useHttp()
+    const {token} = useContext(AuthContext)
+    
+    const fetchNotes = useCallback(async () => {
+        try {
+            
+          const fetched = await request('/api/note/notes', 'GET', null, {
+            Authorization: `Bearer ${token}`
+          })
+          setnewNote(fetched)
+        } catch (e) {}
+      }, [token, request])
+    
+      useEffect(() => {
+        fetchNotes()
+      }, [fetchNotes])
+
+      if (loading) {
+        return <Loader/>
+      }
+
+      if (loading) {
+        return <Loader/>
+      }
+      
     return(
-        <h1>Заметки</h1>
+        <div>
+            <h1>Заметки </h1>
+            <NotesList notes={notes} />
+        </div>
+        
+         
+      
+    
     )
 }

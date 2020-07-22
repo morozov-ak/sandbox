@@ -66,6 +66,10 @@ body {
   margin-right: 10px ;
 }
 
+tr:hover{
+  background-color: #61dafb;
+}
+
 
 
 

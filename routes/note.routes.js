@@ -21,10 +21,11 @@ router.post('/create',auth, async(req,res)=>{
     }
 })
 
-router.get('/',auth,async(req,res)=>{
+router.get('/notes',auth,async(req,res)=>{
     try{
+        console.log('Запрос поиска')
         const notes=await Note.find({owner:req.user.userId})
-        res.json(Notes)
+        res.json(notes)
     }catch(e){
         res.status(500).json({message:"Что-то пошло не так"})
     }
@@ -32,7 +33,10 @@ router.get('/',auth,async(req,res)=>{
 
 router.get('/:id',async(req,res)=>{
     try{
-        const note=await Note.findById(req.params.id)
+        console.log('req.params.id',req.params.id)
+        const note=await Note.findById('5ee5e1c7b4a4890ae02ace8f')
+
+        //const note=await Note.findById(req.params.id)
         res.json(note)  
 
     }catch(e){
