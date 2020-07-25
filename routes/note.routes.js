@@ -7,12 +7,10 @@ const router = Router()
 
 router.post('/create',auth, async(req,res)=>{
     try{
-        console.log(req.body)
         const code = shortid.generate()
         const  note = new Note({
             code, name:req.body.name, notetext:req.body.notetext, owner: req.user.userId
         })
-        console.log('note',note)
         await note.save()
         res.status(201).json({note})
 
@@ -20,6 +18,56 @@ router.post('/create',auth, async(req,res)=>{
         res.status(500).json({message:"Что-то пошло не так nen"})
     }
 })
+
+// router.post('/save',auth, async(req,res)=>{
+//     try{
+//         console.log('save:',req.body);
+//         const noteToEdit=await Note.findById(req.body.noteNameId)
+//         console.log('finded note:', noteToEdit);
+//         noteToEdit.name = req.body.noteNameEdit
+//         noteToEdit.notetext = req.body.noteTextEdit
+//         console.log('finded note edited:', noteToEdit);
+//         //const  noteToEditSave =new Note({ code, name:req.body.name, notetext:req.body.notetext, owner: req.user.userId })
+//         console.log('note save:',noteToEdit);
+//         await noteToEdit.save(function(err) {
+//             if (err) throw err;
+         
+//             console.log('Book successfully saved.');
+//         })
+//         console.log('note save:',note);
+//         res.status(201).json({noteToEdit})
+
+//     }catch(err){
+//         console.log('Ошибка: ',  err);
+//         res.status(500).json({err})
+//     }
+// })
+
+
+router.post('/save',auth, async(req,res)=>{
+    try{
+        console.log('save:',req.body);
+        
+        let doc = await Note.findOneAndUpdate({_id:req.body.noteNameId}, {name: req.body.noteNameEdit, notetext: req.body.noteTextEdit});
+        const noteToEdit=await Note.findById(req.body.noteNameId)
+        console.log('noteToEdit by findOneAndUpdate :',noteToEdit)
+
+
+        
+
+    }catch(err){
+        console.log('Ошибка: ',  err);
+        res.status(500).json({err})
+    }
+})
+
+
+
+
+
+
+
+
 
 router.get('/notes',auth,async(req,res)=>{
     try{
@@ -33,10 +81,7 @@ router.get('/notes',auth,async(req,res)=>{
 
 router.get('/:id',async(req,res)=>{
     try{
-        console.log('req.params.id',req.params.id)
-        const note=await Note.findById('5ee5e1c7b4a4890ae02ace8f')
-
-        //const note=await Note.findById(req.params.id)
+        const note=await Note.findById(req.params.id)
         res.json(note)  
 
     }catch(e){

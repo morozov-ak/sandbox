@@ -21,6 +21,7 @@ export const CreateNote = () => {
     const createHandler = async () => {
         try{
             console.log(auth.token)
+            console.log(newNote)
             const data = await request('/api/note/create','POST',{...newNote},{
                 authorization: `Bearer ${auth.token}`
             })

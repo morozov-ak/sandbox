@@ -25,11 +25,18 @@ export const DetailPage = () => {
     getNote()
   }, [getNote])
 
- 
+
+    
+    
+    
+
+  if (loading) {
+    return <Loader/>
+  }
+
 
   return (
     <>
-      {noteId}
       { !loading && note && <NoteCard note={note} /> }
     </>
   )

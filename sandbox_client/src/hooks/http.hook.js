@@ -14,10 +14,7 @@ export const useHttp =() =>{
             }
 
             const response = await fetch(url,{method,body,headers})
-            console.log('url:',url,method,body,headers)
-            console.log('response:',response)
             const data = await response.json() 
-            console.log('data:',data)
             if(!response.ok){
                 throw new Error(data.message||'Что-то пошло не так')
             }
@@ -25,7 +22,6 @@ export const useHttp =() =>{
             return data
         }
         catch(e){
-            console.log('Catch:', e)
             setLoading(false)
             setError(e.message)
             throw e
