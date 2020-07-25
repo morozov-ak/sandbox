@@ -1,7 +1,15 @@
-import React from 'react'
+import React, { useState, useEffect,useContext } from 'react'
 import {Link} from 'react-router-dom'
+import {AuthContext} from '../context/AuthContext'
+import { useHttp } from '../hooks/http.hook'
 
 export const NotesList = ({ notes }) => {
+  const {request} = useHttp()
+    const auth = useContext(AuthContext)
+
+  
+
+
   if (!notes.length) {
     return <p className="center">Ссылок пока нет</p>
   }
@@ -31,6 +39,10 @@ export const NotesList = ({ notes }) => {
             <td>
               <Link to={`/detail/${note._id}`}>Открыть</Link>
             </td>
+            <div className="input-group-append">
+                
+        </div> 
+
 
             
           </tr>

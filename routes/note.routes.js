@@ -19,29 +19,7 @@ router.post('/create',auth, async(req,res)=>{
     }
 })
 
-// router.post('/save',auth, async(req,res)=>{
-//     try{
-//         console.log('save:',req.body);
-//         const noteToEdit=await Note.findById(req.body.noteNameId)
-//         console.log('finded note:', noteToEdit);
-//         noteToEdit.name = req.body.noteNameEdit
-//         noteToEdit.notetext = req.body.noteTextEdit
-//         console.log('finded note edited:', noteToEdit);
-//         //const  noteToEditSave =new Note({ code, name:req.body.name, notetext:req.body.notetext, owner: req.user.userId })
-//         console.log('note save:',noteToEdit);
-//         await noteToEdit.save(function(err) {
-//             if (err) throw err;
-         
-//             console.log('Book successfully saved.');
-//         })
-//         console.log('note save:',note);
-//         res.status(201).json({noteToEdit})
 
-//     }catch(err){
-//         console.log('Ошибка: ',  err);
-//         res.status(500).json({err})
-//     }
-// })
 
 
 router.post('/save',auth, async(req,res)=>{
@@ -51,21 +29,32 @@ router.post('/save',auth, async(req,res)=>{
         let doc = await Note.findOneAndUpdate({_id:req.body.noteNameId}, {name: req.body.noteNameEdit, notetext: req.body.noteTextEdit});
         const noteToEdit=await Note.findById(req.body.noteNameId)
         console.log('noteToEdit by findOneAndUpdate :',noteToEdit)
-
-
-        
-
+        res.json(req.body.noteNameId)
     }catch(err){
         console.log('Ошибка: ',  err);
         res.status(500).json({err})
     }
 })
 
-
-
-
-
-
+router.post('/deleteNote',auth, async(req,res)=>{
+    try{
+        console.log('Delete:',req.body);
+        console.log('Delete:',req.body.noteNameId);
+        Note.findByIdAndDelete(req.body.noteNameId, function (err, docs) { 
+            if (err){ 
+                console.log(err) 
+            } 
+            else{ 
+                console.log("Deleted : ", docs); 
+            } 
+        });
+        console.log('DELETED')
+        res.json(req.body.noteNameId)
+    }catch(err){
+        console.log('Ошибка: ',  err);
+        res.status(500).json({err})
+    }
+})
 
 
 

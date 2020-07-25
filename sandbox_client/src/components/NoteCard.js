@@ -1,8 +1,12 @@
 import React, { useState, useEffect,useContext } from 'react'
 import {AuthContext} from '../context/AuthContext'
 import { useHttp } from '../hooks/http.hook'
+import { useHistory } from 'react-router-dom'
+
 
 export const NoteCard = ({ note }) => {
+  //const history = useHistory()
+  const history = useHistory()
     const {request} = useHttp()
     const auth = useContext(AuthContext)
     
@@ -10,6 +14,24 @@ export const NoteCard = ({ note }) => {
         
         noteNameId:note._id, noteNameEdit:note.name, noteTextEdit:note.notetext
     })
+
+    const DeleteHandler = async () => {
+      try{
+        //var noteDelete={id:note._id, nameN:note.name}
+        console.log("noteEdit:", noteEdit)
+          console.log(auth.token)
+          console.log("Удаляется: ",note._id)
+          //history.push(`/Notes`)
+          const data = await request('/api/note/deleteNote','POST', {...noteEdit},{
+               authorization: `Bearer ${auth.token}`
+           })
+           history.push(`/Notes`)
+          
+         
+          
+      }
+      catch(err){console.log(err)}
+  }
     
     const changeHandler = event=>{
         setNoteEdit({...noteEdit, [event.target.name]:event.target.value})
@@ -19,10 +41,11 @@ export const NoteCard = ({ note }) => {
     const createHandler = async () => {
         try{
             console.log(auth.token)
+            console.log("СОХРАНИЛОСЬ1")
             const data = await request('/api/note/save','POST',{...noteEdit},{
                 authorization: `Bearer ${auth.token}`
             })
-            console.log(data)
+            console.log("СОХРАНИЛОСЬ2")
            
             
         }
@@ -43,6 +66,7 @@ export const NoteCard = ({ note }) => {
       
       <p>Дата создания: <strong>{new Date(note.date).toLocaleDateString()}</strong></p>
       <textarea onChange={changeHandler}  value={noteEdit.noteTextEdit} name="noteTextEdit" id="noteTextEdit" className="form-control" aria-label="With textarea"></textarea>
+      <button onClick={DeleteHandler} className="btn btn-danger"  type="button"  id="button-addon2">Удалить</button>
     </>
   )
 
