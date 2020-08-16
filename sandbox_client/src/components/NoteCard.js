@@ -17,11 +17,11 @@ export const NoteCard = ({ note }) => {
 
     const DeleteHandler = async () => {
       try{
-        //var noteDelete={id:note._id, nameN:note.name}
+        
         console.log("noteEdit:", noteEdit)
-          console.log(auth.token)
-          console.log("Удаляется: ",note._id)
-          //history.push(`/Notes`)
+        console.log(auth.token)
+        console.log("Удаляется: ",note._id)
+          
           const data = await request('/api/note/deleteNote','POST', {...noteEdit},{
                authorization: `Bearer ${auth.token}`
            })

@@ -25,7 +25,7 @@ router.post('/create',auth, async(req,res)=>{
 router.post('/save',auth, async(req,res)=>{
     try{
         console.log('save:',req.body);
-        
+        console.log('auth:', auth);
         let doc = await Note.findOneAndUpdate({_id:req.body.noteNameId}, {name: req.body.noteNameEdit, notetext: req.body.noteTextEdit});
         const noteToEdit=await Note.findById(req.body.noteNameId)
         console.log('noteToEdit by findOneAndUpdate :',noteToEdit)
