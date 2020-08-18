@@ -1,12 +1,14 @@
-import React, { useState, useEffect,useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import {AuthContext} from '../context/AuthContext'
 import { useHttp } from '../hooks/http.hook'
 import { useHistory } from 'react-router-dom'
+//import { useMessage } from '../hooks/popup'
 
 
 export const NoteCard = ({ note }) => {
   //const history = useHistory()
   const history = useHistory()
+  //const message = useMessage()
     const {request} = useHttp()
     const auth = useContext(AuthContext)
     
@@ -17,16 +19,11 @@ export const NoteCard = ({ note }) => {
 
     const DeleteHandler = async () => {
       try{
-        
-        console.log("noteEdit:", noteEdit)
-        console.log(auth.token)
-        console.log("Удаляется: ",note._id)
-          
-          const data = await request('/api/note/deleteNote','POST', {...noteEdit},{
+         await request('/api/note/deleteNote','POST', {...noteEdit},{
                authorization: `Bearer ${auth.token}`
            })
            history.push(`/Notes`)
-          
+           auth.message2('ВАС ТОЛЬКО ЧТО СТЁРЛИ!!!')
          
           
       }
@@ -40,12 +37,11 @@ export const NoteCard = ({ note }) => {
 
     const createHandler = async () => {
         try{
-            console.log(auth.token)
-            console.log("СОХРАНИЛОСЬ1")
-            const data = await request('/api/note/save','POST',{...noteEdit},{
+            
+            await request('/api/note/save','POST',{...noteEdit},{
                 authorization: `Bearer ${auth.token}`
             })
-            console.log("СОХРАНИЛОСЬ2")
+            auth.message2('попап?')
            
             
         }
@@ -58,7 +54,7 @@ export const NoteCard = ({ note }) => {
     <>
       <h1>{note.name}</h1>
       <div className="input-group mb-3">
-      <input onChange={changeHandler} value={noteEdit.noteNameEdit}   name="noteNameEdit" id="noteNameEdit"   className="form-control" id="noteName" />
+      <input onChange={changeHandler} value={noteEdit.noteNameEdit}   name="noteNameEdit" id="noteNameEdit"   className="form-control"  />
        <div className="input-group-append">
                 <button onClick={createHandler} className="btn btn-success" type="button" id="button-addon2">Сохранить</button>
         </div>
@@ -67,6 +63,7 @@ export const NoteCard = ({ note }) => {
       <p>Дата создания: <strong>{new Date(note.date).toLocaleDateString()}</strong></p>
       <textarea onChange={changeHandler}  value={noteEdit.noteTextEdit} name="noteTextEdit" id="noteTextEdit" className="form-control" aria-label="With textarea"></textarea>
       <button onClick={DeleteHandler} className="btn btn-danger"  type="button"  id="button-addon2">Удалить</button>
+      {/* <div id="snackbar" ></div> */}
     </>
   )
 

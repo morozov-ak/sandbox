@@ -7,7 +7,7 @@ import {AuthContext} from '../context/AuthContext'
 export const AuthPage = () => {
     const auth = useContext(AuthContext)
     const message = useMessage()
-    const {loading,error,request, clearError} = useHttp()
+    const {error,request, clearError} = useHttp()
     const[form,setForm]=useState({
         email:'',password:'',name:''
     })

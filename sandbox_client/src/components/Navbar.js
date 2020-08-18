@@ -16,7 +16,7 @@ export const Navbar = ()=>{
 
 return(
 <nav className="navbar navbar-expand-lg navbar-light bg-light">
-  <a className="navbar-brand" href="#">SandBOX</a>
+  <div className="navbar-brand" >SandBOX</div>
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span className="navbar-toggler-icon"></span>
   </button>
@@ -28,7 +28,7 @@ return(
       
       <div>
       <li className="nav-item">
-        <a className="nav-link" onClick={logoutHandler}>Выйти</a>
+        <div className="nav-link" onClick={logoutHandler}>Выйти</div>
       </li>
       </div>
       

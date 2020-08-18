@@ -1,9 +1,9 @@
 
 import {useCallback} from 'react'
-import { useHttp } from './http.hook'
+//import { useHttp } from './http.hook'
 
 export const useMessage = () =>{
-    const {clearError} = useHttp()
+    //const {clearError} = useHttp()
     return useCallback( text =>{
         
         if(text===''){console.log('тут нет текста:',text)}

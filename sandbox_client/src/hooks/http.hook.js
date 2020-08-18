@@ -1,5 +1,5 @@
 import {useState, useCallback} from 'react'
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { AuthContext } from '../context/AuthContext'
 
 export const useHttp =() =>{
@@ -21,7 +21,7 @@ export const useHttp =() =>{
             console.log("data",data)
             if(!response.ok){
                 console.log("data.e.message",data.e.message)
-                if(data.e.message=="jwt expired"){
+                if(data.e.message==="jwt expired"){
                     console.log("Надо бы логаут")
                     auth.logout()
                     
@@ -38,7 +38,7 @@ export const useHttp =() =>{
             throw e
             
         }
-    },[])
-    const clearError = useCallback(() => {setError('');console.log('бляяяять',error)}, [])
+    },[auth])
+    const clearError = useCallback(() => {setError('');console.log('бляяяять',error)}, [error])
     return { loading, request, error, clearError }
 } 

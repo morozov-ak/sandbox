@@ -16,12 +16,24 @@ export const useAuth = () => {
     }))
   }, [])
 
-
   const logout = useCallback(() => {
     setToken(null)
     setUserId(null)
     localStorage.removeItem(storageName)
   }, [])
+  
+  const message2 = useCallback((mes) => {
+    let div = document.createElement('div')
+    div.id="snackbar"
+    div.className="show"
+    div.textContent = mes;
+      console.log(mes)
+    document.body.append(div)
+    setTimeout(()=>div.remove(),1000)
+  
+  }, [])
+  
+
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem(storageName))
@@ -33,5 +45,5 @@ export const useAuth = () => {
   }, [login])
 
 
-  return { login, logout, token, userId, ready }
+  return { login, logout,message2, token, userId, ready }
 }

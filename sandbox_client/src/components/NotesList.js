@@ -1,5 +1,7 @@
-import React, { useState, useEffect,useContext } from 'react'
-import {Link} from 'react-router-dom'
+import React, { useContext } from 'react'
+
+//import {render} from 'react-dom';
+
 import {AuthContext} from '../context/AuthContext'
 import { useHttp } from '../hooks/http.hook'
 import { useHistory } from 'react-router-dom'
@@ -9,19 +11,19 @@ export const NotesList = ({ notes }) => {
   const history = useHistory()
     const auth = useContext(AuthContext)
     
-    const DeleteHandler = async (id) => {
+    const DeleteHandler = async (id,event) => {
       try{
-        console.log("Удаляется: ", id)
-        const data = await request('/api/note/deleteNote','POST', {noteNameId:id},{
+        
+        console.log("Удаляется: ", id,event)
+        await request('/api/note/deleteNote','POST', {noteNameId:id},{
                 authorization: `Bearer ${auth.token}`
             })
-        console.log("Удалено: ", id, data)
         
-          
-         
-          
+            
       }
       catch(err){console.log(err)}
+      history.push(`/Create`)
+      history.push(`/Notes`)
   }
   
 
@@ -54,11 +56,10 @@ export const NotesList = ({ notes }) => {
             <td>{note.name}</td>
             <td>{note.notetext}</td>
             <td>{new Date(note.date).toLocaleDateString()}</td>
-            {/* <td>
-              <Link to={`/detail/${note._id}`}>Открыть</Link>
-            </td> */}
-            
-              <button onClick={()=>{DeleteHandler(note._id)}} className="btn btn-danger"  type="button"  id="button-addon2">Удалить</button> 
+            <td>
+            <button onClick={(event)=>{event.stopPropagation(); DeleteHandler(note._id)}} className="btn btn-danger"  type="button"  id="button-addon2">Удалить</button>
+            </td>
+               
             
 
 
