@@ -63,7 +63,7 @@ export const NoteCard = ({ note }) => {
       <p>Дата создания: <strong>{new Date(note.date).toLocaleDateString()}</strong></p>
       <textarea onChange={changeHandler}  value={noteEdit.noteTextEdit} name="noteTextEdit" id="noteTextEdit" className="form-control" aria-label="With textarea"></textarea>
       <button onClick={DeleteHandler} className="btn btn-danger"  type="button"  id="button-addon2">Удалить</button>
-      {/* <div id="snackbar" ></div> */}
+      <div id="popup_container_" ></div>
     </>
   )
 
