@@ -9,15 +9,17 @@ export const useHttp =() =>{
     const request = useCallback(async(url,method='GET',body=null,headers = {})=>{
         setLoading(true)
         try {
-            console.log('body:', body,'method:',method,'url:',url)
+            
             if(body){
-                console.log('stringify')
                 body =JSON.stringify(body)
                 headers['Content-Type']='application/json'
             }
-
+            
             const response = await fetch(url,{method,body,headers})
+            console.log("response1", response)
+            console.log("method", method)
             const data = await response.json() 
+            console.log("response2", response)
             console.log("data",data)
             if(!response.ok){
                 console.log("data.e.message",data.e.message)

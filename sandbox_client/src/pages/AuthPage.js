@@ -64,7 +64,7 @@ export const AuthPage = () => {
             <button type="submit" onClick={registerHandler} className="btn btn-success">Register</button>
             
         </div>  
-        <div id="snackbar" >{error}</div>
+        
     </div> 
     )
 }

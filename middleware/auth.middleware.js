@@ -3,9 +3,11 @@ const config = require('config')
 
 module.exports = (req,res,next) =>{
     if (req.method==='OPTIONS'){
+        console.log('wtf')
         return next()
     }
     try{
+        console.log('wtf2')
         const token = req.headers.authorization.split(' ')[1]
         
         if (!token){

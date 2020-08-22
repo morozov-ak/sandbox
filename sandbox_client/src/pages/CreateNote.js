@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { useMessage } from '../hooks/popup'
 import {AuthContext} from '../context/AuthContext'
 import { useHttp } from '../hooks/http.hook'
@@ -10,7 +10,26 @@ export const CreateNote = () => {
     const[newNote,setnewNote]=useState({
         name:'', notetext:''
     })
+    console.log('auth1:',auth)
+    useEffect(()=>{
+        console.log('тут надо проверить аутнетификацию')
+        async function chek_auth(){
+            try{
+                console.log('trying check')
+                const res = await request('/api/note/notes','GET',null,{
+                    authorization: `Bearer ${auth.token}`
+                    })
+            }
+            catch(e){
+                console.log('e:', e)
+            }
+        }
+        chek_auth()
+        
+        
+    },[]
     
+    )
 
     
     const changeHandler = event=>{
