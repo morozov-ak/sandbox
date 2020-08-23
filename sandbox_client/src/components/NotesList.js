@@ -1,23 +1,22 @@
 import React, { useContext } from 'react'
-
-//import {render} from 'react-dom';
-
-import {AuthContext} from '../context/AuthContext'
+import {AuthContext,message2} from '../context/AuthContext'
 import { useHttp } from '../hooks/http.hook'
 import { useHistory } from 'react-router-dom'
 
 export const NotesList = ({ notes }) => {
   const {request} = useHttp()
+  const {message2} = useContext(AuthContext)
   const history = useHistory()
     const auth = useContext(AuthContext)
     
     const DeleteHandler = async (id,event) => {
       try{
-        
+        //message2(`Удаляется: ${id}`)
         console.log("Удаляется: ", id,event)
         await request('/api/note/deleteNote','POST', {noteNameId:id},{
                 authorization: `Bearer ${auth.token}`
-            })
+        })
+        message2("Удалено")
         
             
       }

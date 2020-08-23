@@ -1,12 +1,12 @@
 import React, { useState, useEffect,useContext } from 'react'
 import { useHttp } from '../hooks/http.hook'
-import { useMessage } from '../hooks/popup'
 import {AuthContext} from '../context/AuthContext'
 
 
 export const AuthPage = () => {
     const auth = useContext(AuthContext)
-    const message = useMessage()
+    const {message2} = useContext(AuthContext)
+    //const message = useMessage()
     const {error,request, clearError} = useHttp()
     const[form,setForm]=useState({
         email:'',password:'',name:''
@@ -15,9 +15,9 @@ export const AuthPage = () => {
 
     useEffect ( ()=>{
         
-        if(error){message(error)}
+        if(error){message2(error)}
         
-    },[error,message,] )
+    },[error,message2] )
 
     const changeHandler = event=>{
         setForm({...form, [event.target.name]:event.target.value})
@@ -27,16 +27,20 @@ export const AuthPage = () => {
     const registerHandler = async () => {
         try{
             clearError()
+            
             const data = await request('/api/auth/register','POST',{...form})
-            message(data.message)
+            console.log("data2:", data.message)
+            
         }
-        catch(e){}
+        catch(e){
+            
+        }
     }
 
     const loginHandler = async () => {
         try{
             const data = await request('/api/auth/login','POST',{...form})
-            if(data.message){message(data.message)}
+            if(data.message){message2(`dfghdfg${data}`)}
             auth.login(data.token, data.userId)
         }
         catch(e){}
@@ -47,7 +51,7 @@ export const AuthPage = () => {
         <div className="auth">
             <div className="SiteLogoName">SandBOX</div>
             <div className="form-group">
-                <label htmlFor="exampleDropdownFormEmail2">Email address</label>
+                <label htmlFor="exampleDropdownFormEmail2">Email address:</label>
                 <input name="email" onChange={changeHandler} type="email" className="form-control" id="email" placeholder="email@example.com"/>
             </div>
             <div className="form-group">
@@ -56,8 +60,8 @@ export const AuthPage = () => {
             </div>
 
             <div className="form-group">
-                <label htmlFor="exampleDropdownFormPassword2">Password</label>
-                <input name="password" onChange={changeHandler} type="password" className="form-control" id="password" placeholder="Password"/>
+                <label htmlFor="exampleDropdownFormPassword2">Password:</label>
+                <input name="password" onChange={changeHandler} type="password" className="form-control" id="password" placeholder="От 6 символов"/>
             </div>
 
             <button type="submit" onClick={loginHandler} className="btn btn-primary mybtn">Sign in</button>

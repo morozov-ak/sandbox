@@ -5,7 +5,9 @@ import { useHttp } from '../hooks/http.hook'
 
 export const CreateNote = () => {
     const {request} = useHttp()
+    const {message2} = useContext(AuthContext)
     const auth = useContext(AuthContext)
+
     const message = useMessage()
     const[newNote,setnewNote]=useState({
         name:'', notetext:''
@@ -44,8 +46,7 @@ export const CreateNote = () => {
             const data = await request('/api/note/create','POST',{...newNote},{
                 authorization: `Bearer ${auth.token}`
             })
-            console.log(data)
-            message(data.message)
+            message2(`Создана новая заметка: ${newNote.name} `, newNote)
             setnewNote({name:'', notetext:''})
             
         }

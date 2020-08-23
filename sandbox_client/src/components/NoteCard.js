@@ -10,6 +10,7 @@ export const NoteCard = ({ note }) => {
   const history = useHistory()
   //const message = useMessage()
     const {request} = useHttp()
+    const {message2} = useContext(AuthContext)
     const auth = useContext(AuthContext)
     
     const[noteEdit,setNoteEdit]=useState({
@@ -23,7 +24,8 @@ export const NoteCard = ({ note }) => {
                authorization: `Bearer ${auth.token}`
            })
            history.push(`/Notes`)
-           auth.message2('ВАС ТОЛЬКО ЧТО СТЁРЛИ!!!')
+           message2(`Удалено: ${noteEdit.noteNameEdit}`)
+           //message2('ВАС ТОЛЬКО ЧТО СТЁРЛИ!!!')
          
           
       }
@@ -41,7 +43,7 @@ export const NoteCard = ({ note }) => {
             await request('/api/note/save','POST',{...noteEdit},{
                 authorization: `Bearer ${auth.token}`
             })
-            auth.message2('попап?')
+            message2('Сохранено')
            
             
         }

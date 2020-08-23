@@ -24,12 +24,10 @@ export const useAuth = () => {
   
   const message2 = useCallback((mes) => {
     if (!document.getElementById('popup_container')){
-      console.log("Создаем контейнер для попапа")
       let div = document.createElement('div')
       div.id="popup_container"
       document.getElementById('root').append(div)
     }
-    console.log("Контейнер для попапа существует или создан")
     let div = document.createElement('div')
     div.id="snackbar"
     div.className="show"
@@ -40,8 +38,6 @@ export const useAuth = () => {
     
     setTimeout(()=>{
       div.remove()
-      console.log("Длина чилдренов:", document.getElementById('popup_container').children.length)
-      console.log("удалить???", document.getElementById('popup_container').children.length)
       if (document.getElementById('popup_container')&&!document.getElementById('popup_container').children.length){document.getElementById('popup_container').remove()}
     },3000)
   

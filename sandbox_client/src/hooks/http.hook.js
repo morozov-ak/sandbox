@@ -16,27 +16,27 @@ export const useHttp =() =>{
             }
             
             const response = await fetch(url,{method,body,headers})
-            console.log("response1", response)
-            console.log("method", method)
             const data = await response.json() 
-            console.log("response2", response)
-            console.log("data",data)
+            console.log("data РЕГ:",data)
+            setError(data.message)
+            console.log(response)
             if(!response.ok){
                 console.log("data.e.message",data.e.message)
                 if(data.e.message==="jwt expired"){
-                    console.log("Надо бы логаут")
-                    auth.logout()
-                    
+                    auth.logout()    
                 }
                 throw new Error(data.message||'Что-то пошло не так')
             }
             setLoading(false)
+            console.log("data??")
             return data
+            
         }
         catch(e){
             setLoading(false)
-            setError(e.message)
-            console.log("useHttp",e.message)
+            //setError(e)
+            // console.log("e.message", e.message)
+            // console.log("useHttp:",e.message)
             throw e
             
         }
