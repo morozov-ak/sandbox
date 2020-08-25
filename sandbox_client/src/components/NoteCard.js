@@ -25,7 +25,7 @@ export const NoteCard = ({ note }) => {
            })
            history.push(`/Notes`)
            message2(`Удалено: ${noteEdit.noteNameEdit}`)
-           //message2('ВАС ТОЛЬКО ЧТО СТЁРЛИ!!!')
+           
          
           
       }

@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { useMessage } from '../hooks/popup'
 import {AuthContext} from '../context/AuthContext'
 import { useHttp } from '../hooks/http.hook'
 
@@ -7,43 +6,39 @@ export const CreateNote = () => {
     const {request} = useHttp()
     const {message2} = useContext(AuthContext)
     const auth = useContext(AuthContext)
-
-    const message = useMessage()
     const[newNote,setnewNote]=useState({
         name:'', notetext:''
     })
-    console.log('auth1:',auth)
+    //console.log('auth1:',auth)
     useEffect(()=>{
-        console.log('тут надо проверить аутнетификацию')
+        //console.log('тут надо проверить аутнетификацию')
         async function chek_auth(){
             try{
-                console.log('trying check')
-                const res = await request('/api/note/notes','GET',null,{
+                //console.log('trying check')
+                await request('/api/note/notes','GET',null,{
                     authorization: `Bearer ${auth.token}`
                     })
             }
             catch(e){
-                console.log('e:', e)
+                //console.log('e:', e)
             }
         }
         chek_auth()
         
         
-    },[]
-    
-    )
+    },[auth.token,request])
 
     
     const changeHandler = event=>{
         setnewNote({...newNote, [event.target.name]:event.target.value})
-        console.log(newNote)
+        //console.log(newNote)
     }
 
     const createHandler = async () => {
         try{
-            console.log(auth.token)
-            console.log(newNote)
-            const data = await request('/api/note/create','POST',{...newNote},{
+            //console.log(auth.token)
+            //console.log(newNote)
+            await request('/api/note/create','POST',{...newNote},{
                 authorization: `Bearer ${auth.token}`
             })
             message2(`Создана новая заметка: ${newNote.name} `, newNote)

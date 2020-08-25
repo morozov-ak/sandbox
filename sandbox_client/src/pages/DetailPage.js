@@ -13,7 +13,7 @@ export const DetailPage = () => {
 
   const getNote = useCallback(async () => {
     try {
-        console.log('Поиск детальной информации')
+        //console.log('Поиск детальной информации')
       const fetched = await request(`/api/note/${noteId}`, 'GET', null, {
         Authorization: `Bearer ${token}`
       })

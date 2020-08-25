@@ -28,8 +28,8 @@ export const AuthPage = () => {
         try{
             clearError()
             
-            const data = await request('/api/auth/register','POST',{...form})
-            console.log("data2:", data.message)
+            await request('/api/auth/register','POST',{...form})
+            //console.log("data2:", data.message)
             
         }
         catch(e){

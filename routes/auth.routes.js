@@ -17,11 +17,11 @@ router.post(
     async(req, res)=>{
     try{
         const errors=validationResult(req)
-        console.log(`результат валидации:`,validationResult(req))
-        console.log(`Тело ответа:`, req.body)
+        //console.log(`результат валидации:`,validationResult(req))
+        //console.log(`Тело ответа:`, req.body)
         
         if(!errors.isEmpty()){
-            console.log('Проверка наличия ошибок')
+            //console.log('Проверка наличия ошибок')
             return res.status(400).json({
                 errors: errors.array(),
                 message:'Некорректные данные при регистрации'
@@ -38,7 +38,7 @@ router.post(
         res.status(201).json({message:'User created'})
 
     }catch(e){
-        console.log( `e^`,e)
+        //console.log( `e^`,e)
         res.status(500).json({message:"Что-то пошло не так при регистрации"})
     }
 
@@ -56,7 +56,7 @@ router.post(
         const errors=validationResult(req)
         
             if(!errors.isEmpty()){
-                console.log("ошибки", errors)
+                //console.log("ошибки", errors)
                 return res.status(400).json({
                     errors: errors.array(),
                     message:'Incorrect login data'

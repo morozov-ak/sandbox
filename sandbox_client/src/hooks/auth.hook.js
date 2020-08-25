@@ -32,7 +32,7 @@ export const useAuth = () => {
     div.id="snackbar"
     div.className="show"
     div.textContent = mes;
-      console.log(mes)
+      //console.log(mes)
     
     document.getElementById('popup_container').append(div)
     
