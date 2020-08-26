@@ -27,14 +27,14 @@ export const NotesPage = () => {
         return <Loader/>
       }
 
-      if (loading) {
-        return <Loader/>
-      }
+      // if (loading) {
+      //   return <Loader/>
+      // }
       
     return(
         <div>
             <h1>Заметки </h1>
-            <NotesList notes={notes} />
+            <NotesList notes={notes} className='table' />
         </div>
         
          

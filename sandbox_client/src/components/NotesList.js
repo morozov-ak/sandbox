@@ -32,43 +32,54 @@ export const NotesList = ({ notes }) => {
   }
 
   return (
-      <div id='table'>
-        <table>
-      <thead>
-      <tr>
-        <th>№</th>
-        <th>Заголовок</th>
-        <th>Текст</th>
-        <th>Дата создания</th>
-      </tr>
-      </thead>
-
-      <tbody>
-      { notes.map((note, index) => {
-          
-          
-        return (
-          <tr key={note._id} 
-          onClick={()=>{history.push(`/detail/${note._id}`)}} 
-          >
-            <td>{index + 1}</td>
-            <td>{note.name}</td>
-            <td>{note.notetext}</td>
-            <td>{new Date(note.date).toLocaleDateString()}</td>
-            <td>
-            <button onClick={(event)=>{event.stopPropagation(); DeleteHandler(note._id)}} className="btn btn-danger"  type="button"  id="button-addon2">Удалить</button>
-            </td>
-               
-            
-
-
-            
+    <div id='table' className='table'>
+      <table>
+         <thead>
+          <tr>
+            <td className='col1'>№</td>
+            <td className='col2'>Заголовок</td>
+            {/* <th className='col3'>Текст</th> */}
+            <td className='col4'>Дата создания</td>
+            <td className='col5'></td>
           </tr>
-        )
-      }) }
-      </tbody>
+        </thead>  
+        <tbody>
+          { notes.map((note, index) => {
+            return (
+              <>
+              {/* <tr key={note._id } className='tbody'
+              onClick={()=>{history.push(`/detail/${note._id}`)}} 
+              >
+                <td className='col1'>{index + 1}</td>
+                <td className='col2'>{note.name}</td>
+                <td className='col3'>{note.notetext}</td>
+                <td className='col4'>{new Date(note.date).toLocaleDateString()}</td>
+                <td className='col5'>
+                <button onClick={(event)=>{event.stopPropagation(); DeleteHandler(note._id)}} className="btn btn-danger"  type="button"  id="button-addon2">Удалить</button>
+                </td>
+              </tr> */}
+              <tr key={note._id } className='tbody' 
+              onClick={()=>{history.push(`/detail/${note._id}`)}} 
+              >
+                <td className='col1'>{index + 1}</td>
+                <td className='col2'>{note.name}</td>
+                
+                <td className='col4'>{new Date(note.date).toLocaleDateString()}</td>
+                <td className='col5'>
+                <button onClick={(event)=>{event.stopPropagation(); DeleteHandler(note._id)}} className="btn btn-danger"  type="button"  id="button-addon2">Удалить</button>
+                </td>
+              </tr>
+              <tr>
+                <td className='col3' colspan="4">{note.notetext}</td>
+              </tr>
+              </>
+
+              
+            )
+          }) }
+        </tbody>
     </table>
-      </div>
+  </div>
     
   )
 }
