@@ -24,12 +24,10 @@ export const NotesPage = () => {
       }, [fetchNotes])
 
       if (loading) {
-        return <Loader/>
+        return <Loader/>  
       }
 
-      // if (loading) {
-      //   return <Loader/>
-      // }
+      
       
     return(
         <div>

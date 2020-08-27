@@ -57,6 +57,7 @@ body {
 
 .container{
   max-width: 80%;
+  height: 100vp;
   border-color: maroon;
   border-width: 5px;
   padding: 30px;

@@ -4,7 +4,7 @@ import { useHttp } from '../hooks/http.hook'
 import { useHistory } from 'react-router-dom'
 
 export const NotesList = ({ notes }) => {
-  const {request} = useHttp()
+  const {loading, request} = useHttp()
   const {message2} = useContext(AuthContext)
   const history = useHistory()
     const auth = useContext(AuthContext)
