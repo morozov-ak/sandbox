@@ -1,15 +1,15 @@
 import React, { useState, useEffect,useContext } from 'react'
-import {useHistory} from 'react-router-dom'
+import { useHistory} from 'react-router-dom'
 import { useHttp } from '../hooks/http.hook'
 import {AuthContext} from '../context/AuthContext'
 
 
-export const AuthPage = () => {
+export const RegistrationPage = () => {
     const history=useHistory()
-    const auth = useContext(AuthContext)
+    //const auth = useContext(AuthContext)
     const {message2} = useContext(AuthContext)
     //const message = useMessage()
-    const {error,request} = useHttp()
+    const {error,request, clearError} = useHttp()
     const[form,setForm]=useState({
         email:'',password:'',name:''
     })
@@ -28,10 +28,10 @@ export const AuthPage = () => {
 
     const registerHandler = async () => {
         try{
-            history.push('/RegistrationPage')
-            // clearError()
             
-            // await request('/api/auth/register','POST',{...form})
+            clearError()
+            
+            await request('/api/auth/register','POST',{...form})
             //console.log("data2:", data.message)
             
         }
@@ -42,9 +42,10 @@ export const AuthPage = () => {
 
     const loginHandler = async () => {
         try{
-            const data = await request('/api/auth/login','POST',{...form})
-            if(data.message){message2(`dfghdfg${data}`)}
-            auth.login(data.token, data.userId)
+            history.push('/')
+            // const data = await request('/api/auth/login','POST',{...form})
+            // if(data.message){message2(`dfghdfg${data}`)}
+            // auth.login(data.token, data.userId)
         }
         catch(e){}
     }
@@ -52,23 +53,30 @@ export const AuthPage = () => {
     return(
      <div className="rel">   
         <div className="auth">
-            <div className="SiteLogoName">SandBOX</div>
+             <div className="RegistrationLogoName">Registration</div>
+            
+
+            {/* <svg font-size="100px" width="400px" height="1.5em">
+                <text font-size="100px" y="50%" textLength="400px" lengthAdjust="spacingAndGlyphs">Registration</text>
+            </svg> */}
+
+
             <div className="form-group">
                 <label htmlFor="exampleDropdownFormEmail2">Email address:</label>
                 <input name="email" onChange={changeHandler} type="email" className="form-control" id="email" placeholder="email@example.com"/>
             </div>
-            {/* <div className="form-group">
-                <label htmlFor="exampleDropdownFormEmail2">МНЕ НУЖНО ИМЯ!!!</label>
+            <div className="form-group">
+                <label htmlFor="exampleDropdownFormEmail2">Name:</label>
                 <input name="name" onChange={changeHandler} type="name" className="form-control" id="name" placeholder="Имя"/>
-            </div> */}
+            </div>
 
             <div className="form-group">
                 <label htmlFor="exampleDropdownFormPassword2">Password:</label>
                 <input name="password" onChange={changeHandler} type="password" className="form-control" id="password" placeholder="От 6 символов"/>
             </div>
 
-            <button type="submit" onClick={loginHandler} className="btn btn-primary mybtn">Sign in</button>
-            <button type="submit" onClick={registerHandler} className="btn btn-success">Need registration?</button>
+            <button type="submit" onClick={loginHandler} className="btn btn-primary mybtn">Registred?</button>
+            <button type="submit" onClick={registerHandler} className="btn btn-success">Register</button>
             
         </div>  
         

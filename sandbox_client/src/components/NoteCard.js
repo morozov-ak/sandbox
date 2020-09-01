@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import {AuthContext} from '../context/AuthContext'
 import { useHttp } from '../hooks/http.hook'
 import { useHistory } from 'react-router-dom'
-import {Loader} from '../components/Loader'
+//import {Loader} from '../components/Loader'
 //import { useMessage } from '../hooks/popup'
 
 
