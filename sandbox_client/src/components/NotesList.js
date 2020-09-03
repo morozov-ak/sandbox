@@ -1,29 +1,33 @@
-import React, { useContext } from 'react'
-import {AuthContext} from '../context/AuthContext'
-import { useHttp } from '../hooks/http.hook'
+import React from 'react'
+//import {AuthContext} from '../context/AuthContext'
+//import { useHttp } from '../hooks/http.hook'
+//import {Loader} from '../components/Loader'
+import {Modal} from '../components/Modal'
 import { useHistory } from 'react-router-dom'
 
 export const NotesList = ({ notes }) => {
-  const { request} = useHttp()
-  const {message2} = useContext(AuthContext)
+  //const { request} = useHttp()
+  //const {message2} = useContext(AuthContext)
   const history = useHistory()
-    const auth = useContext(AuthContext)
+  //const auth = useContext(AuthContext)
     
-    const DeleteHandler = async (id,event) => {
-      try{
-        
-        //console.log("Удаляется: ", id,event)
-        await request('/api/note/deleteNote','POST', {noteNameId:id},{
-                authorization: `Bearer ${auth.token}`
-        })
-        message2("Удалено")
+  //   const DeleteHandler = async (id,event) => {
+  //     try{ 
+  //       await request('/api/note/deleteNote','POST', {noteNameId:id},{
+  //               authorization: `Bearer ${auth.token}`
+  //       })
+  //       message2("Удалено")
         
             
-      }
-      catch(err){console.log(err)}
-      history.push(`/Create`)
-      history.push(`/Notes`)
-  }
+  //     }
+  //     catch(err){console.log(err)}
+  //     history.push(`/Create`)
+  //     history.push(`/Notes`)
+  // }
+
+  
+
+
   
 
 
@@ -47,17 +51,7 @@ export const NotesList = ({ notes }) => {
           { notes.map((note, index) => {
             return (
               <>
-              {/* <tr key={note._id } className='tbody'
-              onClick={()=>{history.push(`/detail/${note._id}`)}} 
-              >
-                <td className='col1'>{index + 1}</td>
-                <td className='col2'>{note.name}</td>
-                <td className='col3'>{note.notetext}</td>
-                <td className='col4'>{new Date(note.date).toLocaleDateString()}</td>
-                <td className='col5'>
-                <button onClick={(event)=>{event.stopPropagation(); DeleteHandler(note._id)}} className="btn btn-danger"  type="button"  id="button-addon2">Удалить</button>
-                </td>
-              </tr> */}
+              
               <tr key={note._id } className='tbody' 
               onClick={()=>{history.push(`/detail/${note._id}`)}} 
               >
@@ -66,7 +60,8 @@ export const NotesList = ({ notes }) => {
                 
                 <td className='col4'>{new Date(note.date).toLocaleDateString()}</td>
                 <td className='col5'>
-                <button onClick={(event)=>{event.stopPropagation(); DeleteHandler(note._id)}} className="btn btn-danger"  type="button"  id="button-addon2">Удалить</button>
+                  <Modal note={note}/>
+                {/* <button onClick={(event)=>{event.stopPropagation(); DeleteHandler(note._id)}} className="btn btn-danger"  type="button"  id="button-addon2">Удалить</button> */}
                 </td>
               </tr>
               <tr>

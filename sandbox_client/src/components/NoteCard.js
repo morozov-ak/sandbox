@@ -7,14 +7,12 @@ import { useHistory } from 'react-router-dom'
 
 
 export const NoteCard = ({ note }) => {
-  //const history = useHistory()
   const history = useHistory()
-  //const message = useMessage()
-    const {loading, request} = useHttp()
-    const {message2} = useContext(AuthContext)
-    const auth = useContext(AuthContext)
-    
-    const[noteEdit,setNoteEdit]=useState({
+  const {loading, request} = useHttp()
+  const {message2} = useContext(AuthContext)
+  const auth = useContext(AuthContext)
+  
+  const[noteEdit,setNoteEdit]=useState({
       noteNameId:note._id, noteNameEdit:note.name, noteTextEdit:note.notetext
     })
 
@@ -23,8 +21,9 @@ export const NoteCard = ({ note }) => {
          await request('/api/note/deleteNote','POST', {...noteEdit},{
                authorization: `Bearer ${auth.token}`
            })
-           history.push(`/Notes`)
+           
            message2(`Удалено: ${noteEdit.noteNameEdit}`)
+           history.goBack()
       }
       catch(err){console.log(err)}
   }
@@ -74,7 +73,32 @@ export const NoteCard = ({ note }) => {
       <p>Дата создания: <strong>{new Date(note.date).toLocaleDateString()}</strong></p>
       
       <textarea onChange={changeHandler}  value={noteEdit.noteTextEdit} name="noteTextEdit" id="noteTextEdit" className="form-control" aria-label="With textarea"></textarea>
-  <button onClick={DeleteHandler} className="btn btn-danger"  type="button"  id="button-delete">Удалить {loading}</button>
+  {/* <button onClick={DeleteHandler} className="btn btn-danger"  type="button"  id="button-delete">Удалить</button> */}
+
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+      Удалить
+    </button>
+
+{/* <!-- Modal --> */}
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Удалить заметку: {note.name} ???
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button onClick={DeleteHandler} type="button" data-dismiss="modal" class="btn btn-danger">Удалить</button>
+      </div>
+    </div>
+  </div>
+</div>
       
     </>
   )
