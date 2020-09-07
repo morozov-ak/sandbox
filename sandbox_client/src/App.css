@@ -68,7 +68,7 @@ body {
   border-color: maroon;
   border-width: 5px;
   padding: 30px;
-  background-color: gray;
+  /* background-color: gray; */
 }
 
 .auth{

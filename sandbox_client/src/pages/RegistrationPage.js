@@ -40,15 +40,6 @@ export const RegistrationPage = () => {
         }
     }
 
-    const loginHandler = async () => {
-        try{
-            history.push('/')
-            // const data = await request('/api/auth/login','POST',{...form})
-            // if(data.message){message2(`dfghdfg${data}`)}
-            // auth.login(data.token, data.userId)
-        }
-        catch(e){}
-    }
     
     return(
      <div className="rel">   
@@ -75,7 +66,7 @@ export const RegistrationPage = () => {
                 <input name="password" onChange={changeHandler} type="password" className="form-control" id="password" placeholder="От 6 символов"/>
             </div>
 
-            <button type="submit" onClick={loginHandler} className="btn btn-primary mybtn">Registred?</button>
+            <button type="submit" onClick={()=>{history.push('/')}} className="btn btn-primary mybtn">Registred?</button>
             <button type="submit" onClick={registerHandler} className="btn btn-success">Register</button>
             
         </div>  

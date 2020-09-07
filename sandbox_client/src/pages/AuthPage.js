@@ -26,41 +26,31 @@ export const AuthPage = () => {
         
     }
 
-    const registerHandler = async () => {
-        try{
-            history.push('/RegistrationPage')
-            // clearError()
-            
-            // await request('/api/auth/register','POST',{...form})
-            //console.log("data2:", data.message)
-            
-        }
-        catch(e){
-            
-        }
-    }
+   
 
     const loginHandler = async () => {
         try{
             const data = await request('/api/auth/login','POST',{...form})
-            if(data.message){message2(`dfghdfg${data}`)}
+            if(data.message){message2(`${data}`)}
             auth.login(data.token, data.userId)
         }
         catch(e){}
     }
+
+    
+
+
     
     return(
+        
      <div className="rel">   
-        <div className="auth">
+        <form className="auth" onSubmit={(event)=>{event.preventDefault()}}>
             <div className="SiteLogoName">SandBOX</div>
             <div className="form-group">
                 <label htmlFor="exampleDropdownFormEmail2">Email address:</label>
                 <input name="email" onChange={changeHandler} type="email" className="form-control" id="email" placeholder="email@example.com"/>
             </div>
-            {/* <div className="form-group">
-                <label htmlFor="exampleDropdownFormEmail2">МНЕ НУЖНО ИМЯ!!!</label>
-                <input name="name" onChange={changeHandler} type="name" className="form-control" id="name" placeholder="Имя"/>
-            </div> */}
+            
 
             <div className="form-group">
                 <label htmlFor="exampleDropdownFormPassword2">Password:</label>
@@ -68,9 +58,9 @@ export const AuthPage = () => {
             </div>
 
             <button type="submit" onClick={loginHandler} className="btn btn-primary mybtn">Sign in</button>
-            <button type="submit" onClick={registerHandler} className="btn btn-success">Need registration?</button>
+            <button  onClick={()=>{history.push('/RegistrationPage')}} className="btn btn-success">Need registration?</button>
             
-        </div>  
+        </form>  
         
     </div> 
     )

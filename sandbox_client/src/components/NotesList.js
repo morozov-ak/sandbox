@@ -65,7 +65,7 @@ export const NotesList = ({ notes }) => {
                 </td>
               </tr>
               <tr>
-                <td className='col3' colspan="4">{note.notetext}</td>
+                <td className='col3' colSpan="4">{note.notetext}</td>
               </tr>
               </>
 
