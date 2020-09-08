@@ -41,7 +41,7 @@ export const CreateNote = () => {
         catch(e){}
     }
 
-    if (loading) {
+     if (loading) {
         let btn=document.getElementById('button-save')
         btn.className="btn btn-danger"
         btn.disabled='false'
@@ -54,7 +54,7 @@ export const CreateNote = () => {
         btn.removeAttribute("disabled")
         }
       }
-    
+   
     
     return(
         

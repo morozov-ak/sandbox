@@ -84,37 +84,39 @@ body {
 
 table{
   table-layout: fixed;
-  background-color: rgba(238, 255, 0, 0.397);
+  border: 1px solid gray;
   /* max-width: 60px; */
   width: 100%; /* Ширина таблицы в процентах */
  }
+ .r {
+  border: 1px solid gray;
+ }
+
+ tr {
+  border: 1px solid gray;
+ }
+
  td.col1 {
   vertical-align: middle;
   width: 30px;
-  background-color: rgba(0, 26, 255, 0.397);
+  
  }
  td.col2 {
   vertical-align: middle;
   min-width: 200px;
-  background-color: rgba(255, 0, 0, 0.397);
   overflow: hidden;
  }
  td.col3 {
-  height: 60px;
-  background-color: rgba(179, 255, 0, 0.397);
   overflow: hidden;
  }
  td.col4 {
-   
   vertical-align: middle;
   text-align: center;
   width: 130px; 
-  background-color: rgba(76, 0, 255, 0.397);
   overflow: hidden;
  }
  td.col5 {
   width: 110px;
-  background-color: rgba(123, 255, 0, 0.596);
   overflow: hidden;
  }
  

@@ -1,4 +1,4 @@
-import {useState, useCallback, useEffect} from 'react'
+import { useState, useCallback, useEffect } from 'react'
 
 const storageName = 'userData'
 
@@ -21,28 +21,28 @@ export const useAuth = () => {
     setUserId(null)
     localStorage.removeItem(storageName)
   }, [])
-  
+
   const message2 = useCallback((mes) => {
-    if (!document.getElementById('popup_container')){
+    if (!document.getElementById('popup_container')) {
       let div = document.createElement('div')
-      div.id="popup_container"
+      div.id = "popup_container"
       document.getElementById('root').append(div)
     }
     let div = document.createElement('div')
-    div.id="snackbar"
-    div.className="show"
+    div.id = "snackbar"
+    div.className = "show"
     div.textContent = mes;
-      //console.log(mes)
-    
+    //console.log(mes)
+
     document.getElementById('popup_container').append(div)
-    
-    setTimeout(()=>{
+
+    setTimeout(() => {
       div.remove()
-      if (document.getElementById('popup_container')&&!document.getElementById('popup_container').children.length){document.getElementById('popup_container').remove()}
-    },3000)
-  
+      if (document.getElementById('popup_container') && !document.getElementById('popup_container').children.length) { document.getElementById('popup_container').remove() }
+    }, 3000)
+
   }, [])
-  
+
 
 
   useEffect(() => {
@@ -55,5 +55,5 @@ export const useAuth = () => {
   }, [login])
 
 
-  return { login, logout,message2, token, userId, ready }
+  return { login, logout, message2, token, userId, ready }
 }
