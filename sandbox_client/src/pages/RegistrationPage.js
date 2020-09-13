@@ -32,7 +32,9 @@ export const RegistrationPage = () => {
             clearError()
             
             await request('/api/auth/register','POST',{...form})
-            //console.log("data2:", data.message)
+            setForm({email: "", password: "", name: ""})
+            history.push('/')
+            
             
         }
         catch(e){
@@ -42,9 +44,9 @@ export const RegistrationPage = () => {
 
     
     return(
-     <div className="rel">   
+    <div className="rel">   
         <div className="auth">
-             <div className="RegistrationLogoName">Registration</div>
+            <div className="RegistrationLogoName">Registration</div>
             
 
             {/* <svg font-size="100px" width="400px" height="1.5em">
@@ -54,16 +56,16 @@ export const RegistrationPage = () => {
 
             <div className="form-group">
                 <label htmlFor="exampleDropdownFormEmail2">Email address:</label>
-                <input name="email" onChange={changeHandler} type="email" className="form-control" id="email" placeholder="email@example.com"/>
+                <input name="email" value={form.email} onChange={changeHandler} type="email" className="form-control" id="email" placeholder="email@example.com"/>
             </div>
             <div className="form-group">
                 <label htmlFor="exampleDropdownFormEmail2">Name:</label>
-                <input name="name" onChange={changeHandler} type="name" className="form-control" id="name" placeholder="Имя"/>
+                <input name="name" value={form.name} onChange={changeHandler} type="name" className="form-control" id="name" placeholder="Имя"/>
             </div>
 
             <div className="form-group">
                 <label htmlFor="exampleDropdownFormPassword2">Password:</label>
-                <input name="password" onChange={changeHandler} type="password" className="form-control" id="password" placeholder="От 6 символов"/>
+                <input name="password" value={form.password} onChange={changeHandler} type="password" className="form-control" id="password" placeholder="От 6 символов"/>
             </div>
 
             <button type="submit" onClick={()=>{history.push('/')}} className="btn btn-primary mybtn">Registred?</button>

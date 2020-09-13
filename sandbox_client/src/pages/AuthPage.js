@@ -26,7 +26,7 @@ export const AuthPage = () => {
         
     }
 
-   
+
 
     const loginHandler = async () => {
         try{
@@ -43,7 +43,7 @@ export const AuthPage = () => {
     
     return(
         
-     <div className="rel">   
+    <div className="rel">   
         <form className="auth" onSubmit={(event)=>{event.preventDefault()}}>
             <div className="SiteLogoName">SandBOX</div>
             <div className="form-group">

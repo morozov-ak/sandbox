@@ -17,11 +17,8 @@ router.post(
     async(req, res)=>{
     try{
         const errors=validationResult(req)
-        //console.log(`результат валидации:`,validationResult(req))
-        //console.log(`Тело ответа:`, req.body)
         
         if(!errors.isEmpty()){
-            //console.log('Проверка наличия ошибок')
             return res.status(400).json({
                 errors: errors.array(),
                 message:'Некорректные данные при регистрации'
@@ -35,7 +32,7 @@ router.post(
         const hashedPassword =await bcrypt.hash(password,12)
         const user = new User({email, password:hashedPassword, name})
         await user.save()
-        res.status(201).json({message:'User created'})
+        res.status(201).json({message:'Пользователь стоздан!'})
 
     }catch(e){
         //console.log( `e^`,e)
