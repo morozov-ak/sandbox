@@ -2,6 +2,7 @@ const { Router } = require('express')
 const config = require('config')
 const shortid = require('shortid')
 const Note = require('../models/Notes')
+const User = require('../models/User')
 const auth = require('../middleware/auth.middleware')
 const router = Router()
 
@@ -28,7 +29,6 @@ router.post('/save', auth, async (req, res) => {
         const noteToEdit = await Note.findById(req.body.noteNameId)
         res.json(req.body.noteNameId)
     } catch (err) {
-        //console.log('Ошибка: ',  err);
         res.status(500).json({ err })
     }
 })
@@ -52,13 +52,18 @@ router.post('/deleteNote', auth, async (req, res) => {
 
 
 router.get('/notes', auth, async (req, res) => {
+    console.log('/notes')
     try {
+        //console.log('/notes try',req.user.userId)
         const notes = await Note.find({ owner: req.user.userId })
+        //console.log('/notes try',notes)
         res.json(notes)
     } catch (e) {
         res.status(500).json({ message: "Что-то пошло не так" })
     }
 })
+
+
 
 router.get('/:id', async (req, res) => {
     try {
