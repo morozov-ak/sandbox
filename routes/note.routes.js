@@ -25,7 +25,8 @@ router.post('/create', auth, async (req, res) => {
 
 router.post('/save', auth, async (req, res) => {
     try {
-        let doc = await Note.findOneAndUpdate({ _id: req.body.noteNameId }, { name: req.body.noteNameEdit, notetext: req.body.noteTextEdit });
+        console.log("save:",req.body)
+        let doc = await Note.findOneAndUpdate({ _id: req.body.noteNameId }, { name: req.body.noteNameEdit, notetext: req.body.noteTextEdit, shared:req.body.userList2 });
         const noteToEdit = await Note.findById(req.body.noteNameId)
         res.json(req.body.noteNameId)
     } catch (err) {
@@ -58,6 +59,16 @@ router.get('/notes', auth, async (req, res) => {
         const notes = await Note.find({ owner: req.user.userId })
         //console.log('/notes try',notes)
         res.json(notes)
+    } catch (e) {
+        res.status(500).json({ message: "Что-то пошло не так" })
+    }
+})
+
+router.get('/users',auth, async (req, res) => {
+    console.log("/users")
+    try {
+        const users = await User.find({})
+        res.json(users)
     } catch (e) {
         res.status(500).json({ message: "Что-то пошло не так" })
     }

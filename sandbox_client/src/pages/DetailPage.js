@@ -9,6 +9,7 @@ export const DetailPage = () => {
   const { token } = useContext(AuthContext)
   const { request, loading } = useHttp()
   const [note, setNote] = useState(null)
+  const [users, setUsers] = useState(null)
   const noteId = useParams().id
 
   const getNote = useCallback(async () => {
@@ -20,9 +21,22 @@ export const DetailPage = () => {
     } catch (e) { }
   }, [token, noteId, request])
 
+  const getUsers = useCallback(async () => {
+    try {
+      const fetched = await request(`/api/note/users`, 'GET', null, {
+        Authorization: `Bearer ${token}`
+      })
+      console.log("Юзеры:",fetched)
+      setUsers(fetched)
+    } catch (e) { }
+  }, [token, noteId, request])
+
+
   useEffect(() => {
     getNote()
-  }, [getNote])
+    getUsers()
+
+  }, [getNote,getUsers])
 
   if (loading) {
     return <Loader />
@@ -30,7 +44,7 @@ export const DetailPage = () => {
 
   return (
     <>
-      {!loading && note && <NoteCard note={note} />}
+      {!loading && note && <NoteCard note={note} users={users} />}
     </>
   )
 }

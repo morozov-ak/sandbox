@@ -32,6 +32,7 @@ router.post(
         const hashedPassword =await bcrypt.hash(password,12)
         const user = new User({email, password:hashedPassword, name})
         await user.save()
+        console.log("Омагад! Новый юзер!",name)
         res.status(201).json({message:'Пользователь стоздан!'})
 
     }catch(e){

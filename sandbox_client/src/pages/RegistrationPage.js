@@ -68,8 +68,8 @@ export const RegistrationPage = () => {
                 <input name="password" value={form.password} onChange={changeHandler} type="password" className="form-control" id="password" placeholder="От 6 символов"/>
             </div>
 
-            <button type="submit" onClick={()=>{history.push('/')}} className="btn btn-primary mybtn">Registred?</button>
-            <button type="submit" onClick={registerHandler} className="btn btn-success">Register</button>
+            <button type="submit" onClick={()=>{history.push('/')}} className="btn btn-primary mybtn">Войти</button>
+            <button type="submit" onClick={registerHandler} className="btn btn-success">Зарегистрироваться</button>
             
         </div>  
         

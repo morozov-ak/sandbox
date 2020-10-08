@@ -14,3 +14,7 @@ export const AuthContext = createContext({
     message2:noop,
     isAuthenticated:false
 })
+
+export const shareUsers = createContext({
+    userList2:[]
+})

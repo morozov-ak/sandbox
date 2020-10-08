@@ -57,8 +57,8 @@ export const AuthPage = () => {
                 <input name="password" onChange={changeHandler} type="password" className="form-control" id="password" placeholder="От 6 символов"/>
             </div>
 
-            <button type="submit" onClick={loginHandler} className="btn btn-primary mybtn">Sign in</button>
-            <button  onClick={()=>{history.push('/RegistrationPage')}} className="btn btn-success">Need registration?</button>
+            <button type="submit" onClick={loginHandler} className="btn btn-primary mybtn">Войти</button>
+            <button  onClick={()=>{history.push('/RegistrationPage')}} className="btn btn-success">Зарегистрироваться</button>
             
         </form>  
         

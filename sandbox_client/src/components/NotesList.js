@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom'
 export const NotesList = ({ notes }) => {
   const history = useHistory()
 
+
   if (!notes.length) {
     return <p className="center">Ссылок пока нет</p>
   }

@@ -1,19 +1,22 @@
-import React, { useState, useContext } from 'react'
-import { AuthContext } from '../context/AuthContext'
+import React, { useState, useContext, useEffect } from 'react'
+import { AuthContext, shareUsers } from '../context/AuthContext'
 import { useHttp } from '../hooks/http.hook'
 import { useHistory } from 'react-router-dom'
+import { UsersShareList } from './UsersShareList'
 //import {Loader} from '../components/Loader'
 //import { useMessage } from '../hooks/popup'
 
 
-export const NoteCard = ({ note }) => {
+export const NoteCard = ({ note , users}) => {
   const history = useHistory()
   const { loading, request } = useHttp()
   const { message2 } = useContext(AuthContext)
   const auth = useContext(AuthContext)
+  var {userList2} = useContext(shareUsers)
+  
 
   const [noteEdit, setNoteEdit] = useState({
-    noteNameId: note._id, noteNameEdit: note.name, noteTextEdit: note.notetext
+    noteNameId: note._id, noteNameEdit: note.name, noteTextEdit: note.notetext,shared:note.shared
   })
 
   const DeleteHandler = async () => {
@@ -32,10 +35,14 @@ export const NoteCard = ({ note }) => {
     setNoteEdit({ ...noteEdit, [event.target.name]: event.target.value })
   }
 
+
+
+
   const createHandler = async () => {
     try {
-
-      await request('/api/note/save', 'POST', { ...noteEdit }, {
+      console.log("Список юзеров на сохранение:",userList2)
+      console.log("Список юзеров на сохранение:",noteEdit)
+      await request('/api/note/save', 'POST', { ...noteEdit, userList2 }, {
         authorization: `Bearer ${auth.token}`
       })
       message2('Сохранено')
@@ -44,7 +51,7 @@ export const NoteCard = ({ note }) => {
     }
     catch (err) { console.log(err) }
   }
-
+  console.log("Юзеры переданные:",users)
   if (loading) {
     let btn = document.getElementById('button-save')
     btn.className = "btn btn-danger"
@@ -73,10 +80,20 @@ export const NoteCard = ({ note }) => {
 
       <textarea onChange={changeHandler} value={noteEdit.noteTextEdit} name="noteTextEdit" id="noteTextEdit" className="form-control" aria-label="With textarea"></textarea>
       {/* <button onClick={DeleteHandler} className="btn btn-danger"  type="button"  id="button-delete">Удалить</button> */}
+      
+      
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Расшарить заметку
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <UsersShareList users={users}/>
+        </div>
+      </div>
 
       <button type="button" className="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
         Удалить
-    </button>
+      </button>
 
       {/* <!-- Modal --> */}
       <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
