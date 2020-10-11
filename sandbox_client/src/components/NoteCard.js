@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { AuthContext, shareUsers } from '../context/AuthContext'
+import { AuthContext } from '../context/AuthContext'
 import { useHttp } from '../hooks/http.hook'
 import { useHistory } from 'react-router-dom'
 import { UsersShareList } from './UsersShareList'
@@ -11,7 +11,7 @@ const NoteCard = ({ note, allUserList }) => {
   const { loading, request } = useHttp()
   const { message2 } = useContext(AuthContext)
   const auth = useContext(AuthContext)
-  const {users} = useContext(AuthContext)
+  const {getUsers} = useContext(AuthContext)
 
   
 
@@ -43,18 +43,19 @@ const NoteCard = ({ note, allUserList }) => {
   const createHandler = async () => {
     try {
       
-      console.log("Список юзеров на сохранение:",users)
+      
       message2('Сохранено')
-      //message2(note.shared)
-      //const reqUsersShared = auth.userList
-      console.log(users)
+      const users = getUsers()
+      console.log("Список юзеров на сохранение:",users)
+      
+      
       message2(`reqUsersShared: ${users}`)
       note = await request('/api/note/save', 'POST', { ...noteEdit, users }, {
         authorization: `Bearer ${auth.token}`
       })
       console.log("Полученная заметка после сохранения:",note)
       message2('Сохранено')
-      //message2(note.shared)
+      
 
 
     }

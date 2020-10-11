@@ -15,6 +15,7 @@ module.exports = (req,res,next) =>{
         //console.log("decoded",decoded)
         req.user = decoded
         req.user2 = decoded
+        console.log("DECODED:",decoded)
         next()
     }catch(e){
         

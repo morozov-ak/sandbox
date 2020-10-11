@@ -5,6 +5,7 @@ import { AuthPage } from './pages/AuthPage'
 import { CreateNote } from './pages/CreateNote'
 import { DetailPage } from './pages/DetailPage'
 import { RegistrationPage } from './pages/RegistrationPage'
+import { SharedNotesPage } from './pages/SharedNotesPage'
 
 export const useRoutes = isAuthenticated =>{
     if (isAuthenticated){
@@ -15,6 +16,9 @@ export const useRoutes = isAuthenticated =>{
                 </Route>
                 <Route path="/Create" exact>
                     <CreateNote/>
+                </Route>
+                <Route path="/shared_notes" exact>
+                    <SharedNotesPage/>
                 </Route>
                 <Route path="/detail/:id">
                     <DetailPage />

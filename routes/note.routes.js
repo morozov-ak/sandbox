@@ -25,9 +25,11 @@ router.post('/create', auth, async (req, res) => {
 
 router.post('/save', auth, async (req, res) => {
     try {
-        console.log("save:",req.body)
-        let doc = await Note.findOneAndUpdate({ _id: req.body.noteNameId }, { name: req.body.noteNameEdit, notetext: req.body.noteTextEdit, shared:req.body.users });
+        console.log("req.body.users:",req.body.users)
+        
+        let doc = await Note.findOneAndUpdate({ _id: req.body.noteNameId }, { name: req.body.noteNameEdit, notetext: req.body.noteTextEdit, shared:[...req.body.users] });
         const noteToEdit = await Note.findById(req.body.noteNameId)
+        console.log("saved:",noteToEdit)
         res.json(noteToEdit)
     } catch (err) {
         res.status(500).json({ err })
@@ -57,6 +59,18 @@ router.get('/notes', auth, async (req, res) => {
     try {
         //console.log('/notes try',req.user.userId)
         const notes = await Note.find({ owner: req.user.userId })
+        //console.log('/notes try',notes)
+        res.json(notes)
+    } catch (e) {
+        res.status(500).json({ message: "Что-то пошло не так" })
+    }
+})
+
+router.get('/shared_notes', auth, async (req, res) => {
+    console.log('/shared_notes')
+    try {
+        console.log('/notes try',req.user.userId)
+        const notes = await Note.find({ shared: req.user.userId })
         //console.log('/notes try',notes)
         res.json(notes)
     } catch (e) {

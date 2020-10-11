@@ -23,6 +23,7 @@ export const Navbar = () => {
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav">
           <li className="nav-item"><NavLink to="/Notes" className="nav-link">Заметки</NavLink></li>
+          <li className="nav-item"><NavLink to="/shared_notes" className="nav-link">Расшаренные заметки</NavLink></li>
 
           <li className="nav-item"><NavLink to="/Create" className="nav-link">Создать</NavLink></li>
 
