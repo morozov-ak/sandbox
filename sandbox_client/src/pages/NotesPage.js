@@ -13,10 +13,10 @@ export const NotesPage = () => {
         try {
             
           const fetched = await request('/api/note/notes', 'GET', null, { Authorization: `Bearer ${token}` })
-          console.log('/notes fetched',fetched)
+          
           //const fetched = await fetch('/api/note/notes', { method:'GET' })
           //const data = await fetched.json()
-          console.log("fetched",fetched)
+          
           setnewNote(fetched)
         } catch (e) {}
       }, [token, request])

@@ -24,9 +24,9 @@ export const NotesList = ({ notes }) => {
         <tbody>
           {notes.map((note, index) => {
             return (
-              <>
+              <React.Fragment key={note._id}>
 
-                <tr key={note._id} className='tbody'
+                <tr  className='tbody'
                   onClick={() => { history.push(`/detail/${note._id}`) }}
                 >
                   <td className='col1'>{index + 1}</td>
@@ -40,7 +40,7 @@ export const NotesList = ({ notes }) => {
                 <tr>
                   <td className='col3' colSpan="4">{note.notetext}</td>
                 </tr>
-              </>
+              </React.Fragment>
 
 
             )

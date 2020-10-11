@@ -12,9 +12,8 @@ export const AuthContext = createContext({
     login:noop,
     logout:noop,
     message2:noop,
-    isAuthenticated:false
+    Create:noop,
+    isAuthenticated:false,
+    UsersListToSave:[]
 })
 
-export const shareUsers = createContext({
-    userList2:[]
-})

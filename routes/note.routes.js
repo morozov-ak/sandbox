@@ -26,9 +26,9 @@ router.post('/create', auth, async (req, res) => {
 router.post('/save', auth, async (req, res) => {
     try {
         console.log("save:",req.body)
-        let doc = await Note.findOneAndUpdate({ _id: req.body.noteNameId }, { name: req.body.noteNameEdit, notetext: req.body.noteTextEdit, shared:req.body.userList2 });
+        let doc = await Note.findOneAndUpdate({ _id: req.body.noteNameId }, { name: req.body.noteNameEdit, notetext: req.body.noteTextEdit, shared:req.body.users });
         const noteToEdit = await Note.findById(req.body.noteNameId)
-        res.json(req.body.noteNameId)
+        res.json(noteToEdit)
     } catch (err) {
         res.status(500).json({ err })
     }
@@ -79,6 +79,7 @@ router.get('/users',auth, async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const note = await Note.findById(req.params.id)
+        console.log(req.params.id)
         res.json(note)
 
     } catch (e) {

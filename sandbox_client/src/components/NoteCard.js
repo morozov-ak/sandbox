@@ -1,18 +1,20 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext } from 'react'
 import { AuthContext, shareUsers } from '../context/AuthContext'
 import { useHttp } from '../hooks/http.hook'
 import { useHistory } from 'react-router-dom'
 import { UsersShareList } from './UsersShareList'
-//import {Loader} from '../components/Loader'
-//import { useMessage } from '../hooks/popup'
 
 
-export const NoteCard = ({ note , users}) => {
+
+const NoteCard = ({ note, allUserList }) => {
   const history = useHistory()
   const { loading, request } = useHttp()
   const { message2 } = useContext(AuthContext)
   const auth = useContext(AuthContext)
-  var {userList2} = useContext(shareUsers)
+  const {users} = useContext(AuthContext)
+
+  
+
   
 
   const [noteEdit, setNoteEdit] = useState({
@@ -40,18 +42,25 @@ export const NoteCard = ({ note , users}) => {
 
   const createHandler = async () => {
     try {
-      console.log("Список юзеров на сохранение:",userList2)
-      console.log("Список юзеров на сохранение:",noteEdit)
-      await request('/api/note/save', 'POST', { ...noteEdit, userList2 }, {
+      
+      console.log("Список юзеров на сохранение:",users)
+      message2('Сохранено')
+      //message2(note.shared)
+      //const reqUsersShared = auth.userList
+      console.log(users)
+      message2(`reqUsersShared: ${users}`)
+      note = await request('/api/note/save', 'POST', { ...noteEdit, users }, {
         authorization: `Bearer ${auth.token}`
       })
+      console.log("Полученная заметка после сохранения:",note)
       message2('Сохранено')
+      //message2(note.shared)
 
 
     }
     catch (err) { console.log(err) }
   }
-  console.log("Юзеры переданные:",users)
+  //console.log("Юзеры переданные:",usersToShare)
   if (loading) {
     let btn = document.getElementById('button-save')
     btn.className = "btn btn-danger"
@@ -79,15 +88,15 @@ export const NoteCard = ({ note , users}) => {
       <p>Дата создания: <strong>{new Date(note.date).toLocaleDateString()}</strong></p>
 
       <textarea onChange={changeHandler} value={noteEdit.noteTextEdit} name="noteTextEdit" id="noteTextEdit" className="form-control" aria-label="With textarea"></textarea>
-      {/* <button onClick={DeleteHandler} className="btn btn-danger"  type="button"  id="button-delete">Удалить</button> */}
+    
       
       
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <div className="dropdown">
+        <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Расшарить заметку
         </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <UsersShareList users={users}/>
+        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <UsersShareList allUserList={allUserList} noteEdit={noteEdit} />
         </div>
       </div>
 
@@ -118,6 +127,5 @@ export const NoteCard = ({ note , users}) => {
 
     </>
   )
-
-
 }
+export default React.memo(NoteCard)

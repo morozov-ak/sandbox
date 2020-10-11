@@ -6,7 +6,11 @@ export const useAuth = () => {
   const [token, setToken] = useState(null)
   const [ready, setReady] = useState(false)
   const [userId, setUserId] = useState(null)
+  //var [UsersListToSave, setCreate] = useState([])
+  var UsersListToSave=[]
 
+
+  
   const login = useCallback((jwtToken, id) => {
     setToken(jwtToken)
     setUserId(id)
@@ -21,6 +25,16 @@ export const useAuth = () => {
     setUserId(null)
     localStorage.removeItem(storageName)
   }, [])
+  
+  const Create = useCallback((list) => {
+    UsersListToSave=list
+    
+  }, [])
+  
+  
+
+
+
 
   const message2 = useCallback((mes) => {
     if (!document.getElementById('popup_container')) {
@@ -55,5 +69,5 @@ export const useAuth = () => {
   }, [login])
 
 
-  return { login, logout, message2, token, userId, ready }
+  return { login, logout, message2, Create, token, userId, ready,UsersListToSave }
 }

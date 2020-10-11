@@ -7,13 +7,14 @@ import 'bootstrap'
 import { useAuth } from './hooks/auth.hook';
 import { AuthContext } from './context/AuthContext';
 
+
 function App() {
-  const {token,login,logout,message2,userId}=useAuth()
+  const {token,login,logout,message2,setUsersList,Create,userId, UsersListToSave,users}=useAuth()
   const isAuthenticated = !!token
   const routes = useRoutes(isAuthenticated)
   return (
     <AuthContext.Provider value={{
-      token, login,logout,message2,userId,isAuthenticated
+      token, login, logout, message2,setUsersList,Create, userId, isAuthenticated, UsersListToSave,users
     }}>
         <Router>
         {isAuthenticated&&<Navbar/>}

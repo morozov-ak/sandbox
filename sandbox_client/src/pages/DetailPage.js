@@ -3,14 +3,15 @@ import { useParams } from 'react-router-dom'
 import { useHttp } from '../hooks/http.hook'
 import { AuthContext } from '../context/AuthContext'
 import { Loader } from '../components/Loader'
-import { NoteCard } from '../components/NoteCard'
+import  NoteCard  from '../components/NoteCard'
 
 export const DetailPage = () => {
   const { token } = useContext(AuthContext)
   const { request, loading } = useHttp()
   const [note, setNote] = useState(null)
-  const [users, setUsers] = useState(null)
+  const [allUserList, setAllUserList] = useState(null)
   const noteId = useParams().id
+
 
   const getNote = useCallback(async () => {
     try {
@@ -23,13 +24,14 @@ export const DetailPage = () => {
 
   const getUsers = useCallback(async () => {
     try {
-      const fetched = await request(`/api/note/users`, 'GET', null, {
+      const fetchedU = await request(`/api/note/users`, 'GET', null, {
         Authorization: `Bearer ${token}`
       })
-      console.log("Юзеры:",fetched)
-      setUsers(fetched)
+      setAllUserList(fetchedU)
     } catch (e) { }
-  }, [token, noteId, request])
+  }, [token,  request])
+
+
 
 
   useEffect(() => {
@@ -44,7 +46,7 @@ export const DetailPage = () => {
 
   return (
     <>
-      {!loading && note && <NoteCard note={note} users={users} />}
+      {!loading && note && <NoteCard note={note} allUserList={allUserList} />}
     </>
   )
 }
