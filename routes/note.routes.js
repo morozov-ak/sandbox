@@ -5,6 +5,7 @@ const Note = require('../models/Notes')
 const User = require('../models/User')
 const auth = require('../middleware/auth.middleware')
 const router = Router()
+const _ = require('lodash')
 
 router.post('/create', auth, async (req, res) => {
     try {
@@ -25,13 +26,13 @@ router.post('/create', auth, async (req, res) => {
 
 router.post('/save', auth, async (req, res) => {
     try {
-        console.log("req.body.users:",req.body.users)
-        
-        let doc = await Note.findOneAndUpdate({ _id: req.body.noteNameId }, { name: req.body.noteNameEdit, notetext: req.body.noteTextEdit, shared:[...req.body.users] });
+        console.log("saving")
+        let doc = await Note.findOneAndUpdate({ _id: req.body.noteNameId }, { name: req.body.noteNameEdit, notetext: req.body.noteTextEdit, shared: [...req.body.users] });
         const noteToEdit = await Note.findById(req.body.noteNameId)
-        console.log("saved:",noteToEdit)
+        console.log("saved:", noteToEdit)
         res.json(noteToEdit)
     } catch (err) {
+        console.log("err",err)
         res.status(500).json({ err })
     }
 })
@@ -55,11 +56,8 @@ router.post('/deleteNote', auth, async (req, res) => {
 
 
 router.get('/notes', auth, async (req, res) => {
-    console.log('/notes')
     try {
-        //console.log('/notes try',req.user.userId)
         const notes = await Note.find({ owner: req.user.userId })
-        //console.log('/notes try',notes)
         res.json(notes)
     } catch (e) {
         res.status(500).json({ message: "Что-то пошло не так" })
@@ -67,21 +65,23 @@ router.get('/notes', auth, async (req, res) => {
 })
 
 router.get('/shared_notes', auth, async (req, res) => {
-    console.log('/shared_notes')
     try {
-        console.log('/notes try',req.user.userId)
         const notes = await Note.find({ shared: req.user.userId })
-        //console.log('/notes try',notes)
         res.json(notes)
     } catch (e) {
         res.status(500).json({ message: "Что-то пошло не так" })
     }
 })
 
-router.get('/users',auth, async (req, res) => {
-    console.log("/users")
+router.get('/users', auth, async (req, res) => {
     try {
+        console.log(req.user.userId)
+        
         const users = await User.find({})
+        
+        console.log(_.findIndex(users, {id:req.user.userId}))
+        users.splice(_.findIndex(users, (user)=>{return user._id==req.user.userId}),1)
+        //console.log(users)
         res.json(users)
     } catch (e) {
         res.status(500).json({ message: "Что-то пошло не так" })
@@ -93,7 +93,6 @@ router.get('/users',auth, async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const note = await Note.findById(req.params.id)
-        console.log(req.params.id)
         res.json(note)
 
     } catch (e) {

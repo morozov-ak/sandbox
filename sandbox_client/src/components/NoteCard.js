@@ -46,19 +46,11 @@ const NoteCard = ({ note, allUserList }) => {
       
       message2('Сохранено')
       const users = getUsers()
-      console.log("Список юзеров на сохранение:",users)
-      
-      
-      message2(`reqUsersShared: ${users}`)
       note = await request('/api/note/save', 'POST', { ...noteEdit, users }, {
         authorization: `Bearer ${auth.token}`
       })
-      console.log("Полученная заметка после сохранения:",note)
-      message2('Сохранено')
-      
-
-
-    }
+      setNoteEdit({ ...noteEdit, shared: note.shared })
+      }
     catch (err) { console.log(err) }
   }
   //console.log("Юзеры переданные:",usersToShare)
@@ -125,6 +117,7 @@ const NoteCard = ({ note, allUserList }) => {
           </div>
         </div>
       </div>
+      
 
     </>
   )
