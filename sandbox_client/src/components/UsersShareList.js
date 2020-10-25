@@ -1,11 +1,11 @@
-import React, {  useContext, useEffect } from 'react'
+import React, {  useContext } from 'react'
 import { AuthContext } from '../context/AuthContext'
 
 
 
 export const UsersShareList = ({allUserList=[],noteEdit}) => {
 
-const { Create,UsersListToSave } = useContext(AuthContext)
+const { Create } = useContext(AuthContext)
 var users=noteEdit.shared
 
 console.log("Выпадающее меню",allUserList)
@@ -37,7 +37,8 @@ const checkHandler=user=>{
         console.log("document.getElementById(user._id).checked",document.getElementById(user._id).checked)
         if(!users.includes(user._id)){users=[...users,user._id]}
         console.log("После добавления     :",users)
-        const m = Create(users)
+        //const m = Create(users)
+        Create(users)
         //console.log("m     :",m)
         console.log("document.getElementById(user._id).checked",document.getElementById(user._id).checked)
         setTimeout(()=>{document.getElementById(user._id).checked=true},0)

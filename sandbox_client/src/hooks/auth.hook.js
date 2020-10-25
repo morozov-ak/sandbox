@@ -6,7 +6,8 @@ export const useAuth = () => {
   const [token, setToken] = useState(null)
   const [ready, setReady] = useState(false)
   const [userId, setUserId] = useState(null)
-  //const [UsersListToSave, setCreate] = useState([])
+  //const [UsersListToSave, setUsersListToSave] = useState(null)
+  
   var UsersListToSave=[]
 
 
@@ -27,10 +28,8 @@ export const useAuth = () => {
   }, [])
   
   const Create = useCallback((list) => {
-    
-    console.log("в хуке:",list)
     UsersListToSave=[...list]
-    console.log("в хуке UsersListToSave:",UsersListToSave)
+    //setUsersListToSave(...list)
     return UsersListToSave
   }, [])
   const getUsers = useCallback(() => {
