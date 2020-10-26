@@ -12,11 +12,8 @@ const NoteCard = ({ note, allUserList }) => {
   const { message2 } = useContext(AuthContext)
   const auth = useContext(AuthContext)
   const {getUsers} = useContext(AuthContext)
-
+  const [UsersListToSave, setUsersListToSave] = useState({})
   
-
-  
-
   const [noteEdit, setNoteEdit] = useState({
     noteNameId: note._id, noteNameEdit: note.name, noteTextEdit: note.notetext,shared:note.shared
   })
@@ -26,7 +23,6 @@ const NoteCard = ({ note, allUserList }) => {
       await request('/api/note/deleteNote', 'POST', { ...noteEdit }, {
         authorization: `Bearer ${auth.token}`
       })
-
       message2(`Удалено: ${noteEdit.noteNameEdit}`)
       history.goBack()
     }
@@ -45,7 +41,10 @@ const NoteCard = ({ note, allUserList }) => {
       
       
       message2('Сохранено')
-      const users = getUsers()
+      let users = UsersListToSave
+      console.log("users",users)
+      
+
       note = await request('/api/note/save', 'POST', { ...noteEdit, users }, {
         authorization: `Bearer ${auth.token}`
       })
@@ -89,7 +88,7 @@ const NoteCard = ({ note, allUserList }) => {
           Расшарить заметку
         </button>
         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <UsersShareList allUserList={allUserList} noteEdit={noteEdit} />
+          <UsersShareList allUserList={allUserList} noteEdit={noteEdit} UsersListToSave={UsersListToSave} setUsersListToSave={setUsersListToSave} />
         </div>
       </div>
 

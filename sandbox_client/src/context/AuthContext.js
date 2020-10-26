@@ -14,7 +14,8 @@ export const AuthContext = createContext({
     message2:noop,
     Create:noop,
     getUsers:noop,
+    setUsersListToSave:noop,
     isAuthenticated:false,
-    UsersListToSave:[]
+    UsersListToSave:{}
 })
 

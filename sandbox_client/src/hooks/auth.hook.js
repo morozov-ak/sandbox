@@ -6,9 +6,9 @@ export const useAuth = () => {
   const [token, setToken] = useState(null)
   const [ready, setReady] = useState(false)
   const [userId, setUserId] = useState(null)
-  //const [UsersListToSave, setUsersListToSave] = useState(null)
   
-  var UsersListToSave=[]
+  
+  //var UsersListToSave=[]
 
 
   
@@ -21,22 +21,15 @@ export const useAuth = () => {
     }))
   }, [])
 
+  
   const logout = useCallback(() => {
     setToken(null)
     setUserId(null)
     localStorage.removeItem(storageName)
   }, [])
   
-  const Create = useCallback((list) => {
-    UsersListToSave=[...list]
-    //setUsersListToSave(...list)
-    //
-    return UsersListToSave
-  }, [])
-  const getUsers = useCallback(() => {
-    
-    return UsersListToSave
-  }, [])
+
+
   
   
 
@@ -76,5 +69,5 @@ export const useAuth = () => {
   }, [login])
 
 
-  return { login, logout, message2, Create, token, userId, ready,UsersListToSave,getUsers }
+  return { login, logout, message2,  token, userId, ready }
 }

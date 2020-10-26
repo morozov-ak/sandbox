@@ -27,6 +27,7 @@ export const DetailPage = () => {
       const fetchedU = await request(`/api/note/users`, 'GET', null, {
         Authorization: `Bearer ${token}`
       })
+      console.log("fetchedU",fetchedU)
       setAllUserList(fetchedU)
     } catch (e) { }
   }, [token,  request])
