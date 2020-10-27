@@ -11,8 +11,8 @@ const NoteCard = ({ note, allUserList }) => {
   const { loading, request } = useHttp()
   const { message2 } = useContext(AuthContext)
   const auth = useContext(AuthContext)
-  const {getUsers} = useContext(AuthContext)
-  const [UsersListToSave, setUsersListToSave] = useState({})
+  //const {getUsers} = useContext(AuthContext)
+  const [UsersListToSave, setUsersListToSave] = useState([])
   
   const [noteEdit, setNoteEdit] = useState({
     noteNameId: note._id, noteNameEdit: note.name, noteTextEdit: note.notetext,shared:note.shared

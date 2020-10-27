@@ -5,6 +5,6 @@ const schema = new Schema({
     notetext:{type:String,required:true},
     date:{type:Date,default:Date.now},
     owner:{type:Types.ObjectId,ref:'User'},
-    shared:{type:Object,default:{}}
+    shared:[]
 })
 module.exports = model('Notes', schema)
