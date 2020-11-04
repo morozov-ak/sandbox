@@ -16,6 +16,10 @@ body {
   }
 }
 
+.form-check{
+  margin: 0px 10px;
+}
+
 
 
 .App-header {
@@ -125,7 +129,7 @@ table{
   margin-right: 10px ;
 }
 
- tr.tbody:hover{
+tr.tbody:hover{
   background-color: lightslategray  ;
 } 
 
@@ -138,7 +142,7 @@ table{
 
 
  /* The snackbar - position it at the bottom and in the middle of the screen */
- #snackbar {
+#snackbar {
   /* visibility: hidden; Hidden by default. Visible on click */
   width: 250px; /* Set a default minimum width */
   margin-left: -125px; /* Divide value of min-width by 2 */
@@ -154,7 +158,7 @@ table{
   overflow: hidden;
   
    /* -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s; */
-   animation: fadein 0.5s, fadeout 0.5s 2.5s; ;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s; ;
   /* animation: fadein 0.5s, fadeout 0.5s 2.5s;  */
 }
 

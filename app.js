@@ -10,7 +10,7 @@ app.use(express.json({ extended: true }))
 
 app.use('/api/auth', require('./routes/auth.routes.js'))
 app.use('/api/note',require('./routes/note.routes'))
-// app.use('/t',require('./routes/redirect.routs'))
+
 
 
 const PORT = config.get('port') || 5000

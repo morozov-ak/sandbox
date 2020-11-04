@@ -77,7 +77,7 @@ router.post(
             {expiresIn:'1h'}
 
         )
-        res.json({token,userId:user.id})
+        return res.json({token,userId:user.id})
         //console.log(token,userId)  
         
 
