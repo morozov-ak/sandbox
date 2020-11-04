@@ -2,6 +2,7 @@
     "port": 5000,
     "jwtSecret": "moroz",
     "mongoUri": "mongodb+srv://morozov:1234@cluster0-pas4v.azure.mongodb.net/sdb?retryWrites=true&w=majority",
-    "baseUrl":"http://localhost:5000"
+    "baseUrl":"http://localhost:5000",
+    "baseUr":"http://localhost:5000"
     
 }
