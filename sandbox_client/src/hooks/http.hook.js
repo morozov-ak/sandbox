@@ -22,10 +22,14 @@ export const useHttp = () => {
             //console.log(response)
             if (!response.ok) {
                 //console.log("data.e.message",data.e.message)
-                if (data.e.message === "jwt expired") {
-                    auth.logout()
+                if(data.e!==undefined){
+                    console.log("defined")
+                    if (data.e.message === "jwt expired") {
+                        auth.logout()
+                    }
+                    throw new Error(data.message || 'Что-то пошло не так')
                 }
-                throw new Error(data.message || 'Что-то пошло не так')
+                
             }
             setLoading(false)
             //console.log("data??")

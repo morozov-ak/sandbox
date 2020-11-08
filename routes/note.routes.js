@@ -6,6 +6,7 @@ const User = require('../models/User')
 const auth = require('../middleware/auth.middleware')
 const router = Router()
 const _ = require('lodash')
+const mailer = require('../models/mailer')
 
 router.post('/create', auth, async (req, res) => {
     try {
@@ -20,6 +21,7 @@ router.post('/create', auth, async (req, res) => {
         res.status(500).json(e)
     }
 })
+
 
 
 

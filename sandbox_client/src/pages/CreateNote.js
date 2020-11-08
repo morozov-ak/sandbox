@@ -40,7 +40,7 @@ export const CreateNote = () => {
         }
         catch (e) { }
     }
-
+    
     if (loading) {
         let btn = document.getElementById('button-save')
         btn.className = "btn btn-danger"
@@ -69,6 +69,7 @@ export const CreateNote = () => {
             <div className="input-group">
                 <textarea onChange={changeHandler} value={newNote.notetext} name="notetext" id="notetext" className="form-control" aria-label="With textarea"></textarea>
             </div>
+            
         </div>
 
 

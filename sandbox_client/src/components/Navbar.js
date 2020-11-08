@@ -15,7 +15,7 @@ export const Navbar = () => {
   }
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-md navbar-light bg-light">
       <div className="navbar-brand" >SandBOX</div>
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
@@ -26,12 +26,13 @@ export const Navbar = () => {
           <li className="nav-item"><NavLink to="/shared_notes" className="nav-link">Расшаренные заметки</NavLink></li>
 
           <li className="nav-item"><NavLink to="/Create" className="nav-link">Создать</NavLink></li>
+          <li className="nav-link" onClick={logoutHandler}>Выйти</li>
 
-          <div>
+          {/* <div>
             <li className="nav-item">
               <div className="nav-link" onClick={logoutHandler}>Выйти</div>
             </li>
-          </div>
+          </div> */}
 
         </ul>
       </div>

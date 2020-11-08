@@ -41,6 +41,13 @@ export const RegistrationPage = () => {
             
         }
     }
+    
+    const switchTo = async (name) => {
+        
+        const input = document.getElementById(name);
+        input.focus();
+        input.select();
+    }
 
     
     return(
@@ -48,24 +55,42 @@ export const RegistrationPage = () => {
         <div className="auth">
             <div className="RegistrationLogoName">Registration</div>
             
-
-            {/* <svg font-size="100px" width="400px" height="1.5em">
-                <text font-size="100px" y="50%" textLength="400px" lengthAdjust="spacingAndGlyphs">Registration</text>
-            </svg> */}
-
-
             <div className="form-group">
                 <label htmlFor="exampleDropdownFormEmail2">Email address:</label>
-                <input name="email" value={form.email} onChange={changeHandler} type="email" className="form-control" id="email" placeholder="email@example.com"/>
+                <input 
+                name="email" 
+                value={form.email} 
+                onKeyPress={(e)=>{if(e.key==="Enter"){switchTo("name")}}}
+                onChange={changeHandler} 
+                type="email" 
+                className="form-control" 
+                id="email" 
+                placeholder="email@example.com"/>
             </div>
+
             <div className="form-group">
                 <label htmlFor="exampleDropdownFormEmail2">Name:</label>
-                <input name="name" value={form.name} onChange={changeHandler} type="name" className="form-control" id="name" placeholder="Имя"/>
+                <input name="name" 
+                value={form.name} 
+                onKeyPress={(e)=>{if(e.key==="Enter"){switchTo("password")}}}
+                onChange={changeHandler} 
+                type="name" 
+                className="form-control" 
+                id="name" 
+                placeholder="Имя"/>
             </div>
 
             <div className="form-group">
                 <label htmlFor="exampleDropdownFormPassword2">Password:</label>
-                <input name="password" value={form.password} onChange={changeHandler} type="password" className="form-control" id="password" placeholder="От 6 символов"/>
+                <input 
+                name="password" 
+                value={form.password}
+                onKeyPress={(e)=>{if(e.key==="Enter"){registerHandler()}}} 
+                onChange={changeHandler} 
+                type="password" 
+                className="form-control" 
+                id="password" 
+                placeholder="От 6 символов"/>
             </div>
 
             <button type="submit" onClick={()=>{history.push('/')}} className="btn btn-primary mybtn">Войти</button>

@@ -4,7 +4,11 @@ const config = require('config')
 const jwt = require('jsonwebtoken')
 const {check, validationResult} = require('express-validator')
 const User = require('../models/User')
+const mailer = require('../models/mailer')
+const passGen = require('password-generator')
+
 const router = Router()
+
 
 
 // /api/auth/register
@@ -33,6 +37,7 @@ router.post(
         const user = new User({email, password:hashedPassword, name})
         await user.save()
         console.log("Омагад! Новый юзер!",name)
+        
         res.status(201).json({message:'Пользователь стоздан!'})
 
     }catch(e){
@@ -46,11 +51,11 @@ router.post(
     '/login', 
     [
         check('email','Input correct email').normalizeEmail().isEmail(),
-        check('password','Input password').exists()
+        check('password','Input password').exists().isLength({min:1})
     ],
     async(req, res)=>{
     try{
-        
+        console.log("/login")
         const errors=validationResult(req)
         
             if(!errors.isEmpty()){
@@ -83,6 +88,55 @@ router.post(
 
     }catch(e){
         res.status(500).json({message:"Что-то пошло не так"})
+    }
+})
+
+router.post('/send',  
+    [
+        check('email','Input correct email').normalizeEmail().isEmail(),
+    ],  
+    async (req, res) => {
+    try {
+        console.log('send')
+        const errors=validationResult(req)
+        if(!errors.isEmpty()){
+            return res.status(400).json({
+                errors: errors.array(),
+                message:'Incorrect login data'
+            })
+        }
+        const{email,password}=req.body
+        console.log(email)
+        const user = await User.findOne({email})
+        //console.log(user)
+        if(!user){
+            return res.status(400).json({message:'User not found'})
+        }
+        console.log("user1",user)
+        const generatedPassword =passGen(6,false)
+        let generatedPasswordHashed =await bcrypt.hash(generatedPassword,12)
+        console.log(generatedPassword)
+        console.log(generatedPasswordHashed)
+        console.log("user2",user)
+        let usr = await User.findOneAndUpdate({_id:user._id}, {password:generatedPasswordHashed});
+        console.log("usr",usr)
+
+        
+        let mail={
+            from: 'mr.morozov_ak@mail.ru', // sender address
+            to: user.email, // list of receivers
+            subject: "Напоминание пароля", // Subject line
+            text: `Новый пароль: ${generatedPassword}`, // plain text body
+            //html: "<b>Новый пароль: {generatedPassword}</b>", // html body
+
+        }
+        console.log('send2')
+        mailer(mail)
+        console.log('send3')
+        res.status(200).json({message:"Пароль отправлен на почту"})
+
+    } catch (e) {
+        res.status(500).json(e)
     }
 })
 
