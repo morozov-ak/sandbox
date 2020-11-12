@@ -28,7 +28,7 @@ export const AuthPage = () => {
             const data = await request('/api/auth/login','POST',{...form})
             if(data.message){message2(data.message)}
             
-            auth.login(data.token, data.userId)
+            auth.login(data.token, data.userId,data.userName)
             
             
         }

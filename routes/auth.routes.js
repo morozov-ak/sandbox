@@ -82,7 +82,7 @@ router.post(
             {expiresIn:'1h'}
 
         )
-        return res.json({token,userId:user.id})
+        return res.json({token,userId:user.id,userName:user.name})
         //console.log(token,userId)  
         
 
@@ -139,6 +139,9 @@ router.post('/send',
         res.status(500).json(e)
     }
 })
+
+
+
 
 
 module.exports = router

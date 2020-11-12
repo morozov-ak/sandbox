@@ -9,12 +9,12 @@ import { AuthContext } from './context/AuthContext';
 
 
 function App() {
-  const {token,login,logout,message2,setUsersList,Create,userId, UsersListToSave,setUsersListToSave,users,getUsers}=useAuth()
+  const {token,login,logout,message2,setUsersList,Create,userId, UsersListToSave,setUsersListToSave,users,getUsers,userName}=useAuth()
   const isAuthenticated = !!token
   const routes = useRoutes(isAuthenticated)
   return (
     <AuthContext.Provider value={{
-      token, login, logout, message2,setUsersList,Create, userId, isAuthenticated, UsersListToSave,setUsersListToSave,users,getUsers
+      token, login, logout, message2,setUsersList,Create, userId, isAuthenticated, UsersListToSave,setUsersListToSave,users,getUsers,userName
     }}>
         <Router>
         {isAuthenticated&&<Navbar/>}

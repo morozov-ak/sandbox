@@ -8,6 +8,8 @@ export const Navbar = () => {
   const history = useHistory()
   const auth = useContext(AuthContext)
 
+
+
   const logoutHandler = event => {
     event.preventDefault()
     auth.logout()
@@ -26,8 +28,19 @@ export const Navbar = () => {
           <li className="nav-item"><NavLink to="/shared_notes" className="nav-link">Расшаренные заметки</NavLink></li>
 
           <li className="nav-item"><NavLink to="/Create" className="nav-link">Создать</NavLink></li>
-          <li className="nav-link" onClick={logoutHandler}>Выйти</li>
-
+          {/* <li className="nav-link" onClick={logoutHandler}>Выйти</li> */}
+          <li className="nav-item dropdown">
+              <span className="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {auth.userName}
+              </span>
+              <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  <NavLink to="/change_password" className="dropdown-item">Сменить пароль</NavLink>
+                
+                
+                <span className="dropdown-item" onClick={logoutHandler}>Выйти</span>
+              </div>
+          </li>
           {/* <div>
             <li className="nav-item">
               <div className="nav-link" onClick={logoutHandler}>Выйти</div>

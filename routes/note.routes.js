@@ -1,6 +1,8 @@
 const { Router } = require('express')
 const config = require('config')
+const bcrypt = require('bcryptjs')
 const shortid = require('shortid')
+const {check, validationResult} = require('express-validator')
 const Note = require('../models/Notes')
 const User = require('../models/User')
 const auth = require('../middleware/auth.middleware')
@@ -106,4 +108,41 @@ router.get('/:id', async (req, res) => {
         res.status(500).json({ message: "Что-то пошло не так" })
     }
 })
+
+router.post('/change_password',  
+    [
+        check('oldPass','Input correct oldPass').isLength({ min: 6 }),
+        check('pass','Input correct pass').isLength({ min: 6 }),
+        check('ConfirmPass','Input correct ConfirmPass').isLength({ min: 6 }),
+    ],  auth,
+    async (req, res) => {
+    try {
+        const errors=validationResult(req)
+        if(!errors.isEmpty()){
+            return res.status(400).json({
+                errors: errors.array(),
+                message:'Incorrect login data'
+            })
+        }
+        const{oldPass,pass,ConfirmPass}=req.body
+        if(pass!==ConfirmPass){ return res.status(400).json({message:"Пароли не совпадают"})}
+        console.log('change_password')
+        console.log(req.user)
+        const userToChange = await User.findById(req.user.userId)
+        console.log(userToChange)
+        const isMatch = await bcrypt.compare(oldPass, userToChange.password)
+        if (!isMatch){
+            return res.status(400).json({message: 'Старый пароль неправильный!'})
+        }
+        const hashedPassword =await bcrypt.hash(pass,12)
+        let usr = await User.findOneAndUpdate({_id:req.user.userId}, {password:hashedPassword});
+        
+        
+        res.status(200).json({message:"Пароль успешно изменён"})
+
+    } catch (e) {
+        res.status(500).json(e)
+    }
+})
+
 module.exports = router
