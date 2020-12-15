@@ -83,7 +83,7 @@ const NoteCard = ({ note, allUserList }) => {
     
       
       
-      <div className="dropdown">
+      <div className="dropdown foot_btn">
         <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Расшарить заметку
         </button>
@@ -92,7 +92,7 @@ const NoteCard = ({ note, allUserList }) => {
         </div>
       </div>
 
-      <button type="button" className="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+      <button type="button" className="btn btn-danger foot_btn" data-toggle="modal" data-target="#exampleModal">
         Удалить
       </button>
 

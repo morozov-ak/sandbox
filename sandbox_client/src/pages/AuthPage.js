@@ -61,7 +61,10 @@ export const AuthPage = () => {
         
     <div className="rel">   
         <div className="auth" onSubmit={(event)=>{event.preventDefault()}}>
+            
             <div className="SiteLogoName">SandBOX</div>
+            
+            
             <div className="form-group">
                 <label htmlFor="email">Email address:</label>
                 <input name="email" onKeyPress={(e)=>{if(e.key==="Enter"){switchToPass()}}} onChange={changeHandler} type="email" className="form-control" id="email" placeholder="email@example.com"/>
@@ -72,10 +75,11 @@ export const AuthPage = () => {
                 <label htmlFor="password">Password:</label>
                 <input name="password" onKeyPress={(e)=>{if(e.key==="Enter"){loginHandler()}}} onChange={changeHandler} type="password" className="form-control" id="password" placeholder="От 6 символов"/>
             </div>
-
-            <button  onClick={loginHandler} className="btn btn-primary mybtn">Войти</button>
-            <button  onClick={()=>{history.push('/RegistrationPage')}} className="btn btn-success mybtn">Зарегистрироваться</button>
-            <button  onClick={sendMail} className="btn btn-warning">Забыл пароль</button>
+            <div className="auth-buttons">
+                <button  onClick={loginHandler} className="btn btn-primary mybtn">Войти</button>
+                <button  onClick={()=>{history.push('/RegistrationPage')}} className="btn btn-success mybtn">Зарегистрироваться</button>
+                <button  onClick={sendMail} className="btn btn-warning mybtn">Забыл пароль</button>
+            </div>
             
         </div>  
         

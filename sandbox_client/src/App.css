@@ -41,6 +41,7 @@ body {
 
 .SiteLogoName{
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
   font-weight: 500;
   font-size: 97px;
   height: 90px;
@@ -61,17 +62,17 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  min-height: 390px;
+  /* min-height: 390px; */
   
   
 }
 
 .container{
-  max-width: 80%;
+  /* max-width: 80%; */
   height: 100vp;
   border-color: maroon;
   border-width: 5px;
-  padding: 30px;
+  padding: 0px;
   /* background-color: gray; */
 }
 
@@ -81,6 +82,7 @@ body {
   margin-top: auto;
   margin-bottom: 50%;
   transform:  translate(-50%); */
+  
   justify-content: center;
   width: 400px;
   
@@ -125,8 +127,44 @@ table{
  }
  
 
+.auth-buttons{
+  display: flex;
+  justify-content: space-between;
+}
+
 .mybtn{
-  margin-right: 10px ;
+
+  margin-top: 10px ;
+  
+}
+@media screen and (max-width:450px) {
+    .mybtn{
+      font-size: 15px;
+      margin-right: 5px;
+    }
+    .mybtn:last-child{
+      margin-right: 0px;
+    }
+    .auth{
+      width: 100%;
+      margin:25px;
+    }
+    .SiteLogoName{
+      font-size: 20vw;
+    }
+    .auth-buttons{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: start; 
+    }
+
+    
+
+  }
+
+
+.foot_btn{
+  margin: 5px 0px 0px ;
 }
 
 tr.tbody:hover{
